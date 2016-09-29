@@ -14,7 +14,7 @@ namespace encog_1stApp
     internal class Program
     {
         /// <summary>
-        /// Input for the XOR function.
+        /// Input for the XOR functions.
         /// </summary>
         public static double[][] XORInput =
         {
