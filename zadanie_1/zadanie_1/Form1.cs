@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System.Drawing;
 using System.Drawing.Imaging;
 using zadanie_1.functions;
 
@@ -30,7 +29,8 @@ namespace zadanie_1
             g.Clear(Color.White);
             pictureBox1.Refresh();
 
-            f = new Function1D(-50,14,500,pictureBox1.Width,pictureBox1.Height);
+            f = new Function1D(-9,9,10000,pictureBox1.Width,pictureBox1.Height);
+            f.DrawMesh(pictureBox1, g);
             f.DrawFunction(pictureBox1,g);
         }
 

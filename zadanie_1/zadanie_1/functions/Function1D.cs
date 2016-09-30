@@ -53,9 +53,10 @@ namespace zadanie_1.functions
             delY = pictureHeight/(double)(2d * Math.Max(Math.Abs(fIdeal.Min()), Math.Abs(fIdeal.Max())));
         }
 
+        #region Drawing
         public void DrawFunction(System.Windows.Forms.PictureBox pictureBox, Graphics g)
         {
-            Pen pen = new Pen(Brushes.Black);
+            Pen pen = new Pen(Brushes.Blue);
             for (int i = 1; i < fInput.Length; i++)
             {
                 g.DrawLine(pen, GetXCoord(fInput[i - 1]), GetYCoord(fIdeal[i-1]),
@@ -65,10 +66,43 @@ namespace zadanie_1.functions
             pictureBox.Refresh();
         }
 
+        public void DrawMesh(System.Windows.Forms.PictureBox pictureBox, Graphics g)
+        {
+            g.DrawLine(new Pen(Brushes.Black), pictureWidth / 2.0f, 0, pictureWidth / 2.0f, pictureHeight);
+            g.DrawLine(new Pen(Brushes.Black), 0, pictureHeight / 2.0f, pictureWidth, pictureHeight / 2.0f);
+
+            Pen pen = new Pen(Color.FromArgb(39,0,0,0));
+            //zvisel ciary
+            for (float i = 0; i <= pictureWidth; i += (float)delX)
+            {
+                g.DrawLine(pen, i, 0, i, pictureHeight);
+                //g.DrawString(i.ToString(),new Font(FontFamily.GenericSansSerif, 10.0f),Brushes.Black,i,pictureHeight/2);
+            }
+            //vodorovne ciary
+            for (float i = 0; i <= pictureHeight; i += (float)delY)
+                g.DrawLine(pen, 0, i, pictureWidth, i);
+
+            pictureBox.Refresh();
+        }
+
+        public void ClearMesh(System.Windows.Forms.PictureBox pictureBox, Graphics g)
+        {
+            g.Clear(Color.White);
+            DrawFunction(pictureBox, g);
+        }
+#endregion
+
         public double Function(double x)
         {
-            //return Math.Sin(x);
-            return -Math.Abs(x);
+            //return x*x;
+            //return -Math.Abs(x);
+            if (x >= -9 && x <= -3)
+                return x * x + 12 * x + 36;
+            if (x >= -3 && x <= 3)
+                return x * x;
+            if (x >= 3 && x <= 9)
+                return x * x - 12 * x + 36;
+            return 0;
         }
 
         private void SwitchBorders()
@@ -88,7 +122,7 @@ namespace zadanie_1.functions
 
         private float GetYCoord(double y)
         {
-            return (float)(-delX * y + pictureHeight / 2d);
+            return (float)(-delY * y + pictureHeight / 2d);
         }
     }
 }
