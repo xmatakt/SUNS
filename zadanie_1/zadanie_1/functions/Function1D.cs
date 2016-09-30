@@ -19,8 +19,10 @@ namespace zadanie_1.functions
         private int nodesCount;
         private double[] fInput;
         private double[] fIdeal;
+        private double delX = -1;
+        private double delY = -1;
 
-        private PointF[] curvePoints;
+        //private PointF[] curvePoints;
 
         public Function1D(double left, double right, int count, int width, int height)
         {
@@ -46,17 +48,27 @@ namespace zadanie_1.functions
                 fInput[i] = leftBorder + i * delimeter;
                 fIdeal[i] = Function(fInput[i]);
             }
+
+            delX = pictureWidth/(double)(2d * Math.Max(Math.Abs(leftBorder), Math.Abs(rightBorder)));
+            delY = pictureHeight/(double)(2d * Math.Max(Math.Abs(fIdeal.Min()), Math.Abs(fIdeal.Max())));
         }
 
         public void DrawFunction(System.Windows.Forms.PictureBox pictureBox, Graphics g)
         {
-            g.DrawLine(new Pen(Brushes.Black),0,0,100,100);
+            Pen pen = new Pen(Brushes.Black);
+            for (int i = 1; i < fInput.Length; i++)
+            {
+                g.DrawLine(pen, GetXCoord(fInput[i - 1]), GetYCoord(fIdeal[i-1]),
+                    GetXCoord(fInput[i]), GetYCoord(fIdeal[i]));    
+            }
+
             pictureBox.Refresh();
         }
 
         public double Function(double x)
         {
-            return Math.Sin(x);
+            //return Math.Sin(x);
+            return -Math.Abs(x);
         }
 
         private void SwitchBorders()
@@ -67,6 +79,16 @@ namespace zadanie_1.functions
                 leftBorder = rightBorder;
                 rightBorder = tmp;
             }
+        }
+
+        private float GetXCoord(double x)
+        {
+            return (float)(delX * x + pictureWidth / 2d);
+        }
+
+        private float GetYCoord(double y)
+        {
+            return (float)(-delX * y + pictureHeight / 2d);
         }
     }
 }

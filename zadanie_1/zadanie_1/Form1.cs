@@ -30,7 +30,7 @@ namespace zadanie_1
             g.Clear(Color.White);
             pictureBox1.Refresh();
 
-            f = new Function1D(-5,5,10,pictureBox1.Width,pictureBox1.Height);
+            f = new Function1D(-50,14,500,pictureBox1.Width,pictureBox1.Height);
             f.DrawFunction(pictureBox1,g);
         }
 
