@@ -102,6 +102,18 @@ namespace zadanie_1.functions
             pictureBox.Refresh();
         }
 
+        public void DrawResultAsCurve(System.Windows.Forms.PictureBox pictureBox, Graphics g, double[] result)
+        {
+            Pen pen = new Pen(Brushes.Red);
+            for (int i = 1; i < result.Length; i++)
+            {
+                g.DrawLine(pen, GetXCoord(fInput[i - 1]), GetYCoord(result[i - 1]),
+                    GetXCoord(fInput[i]), GetYCoord(result[i]));
+            }
+
+            pictureBox.Refresh();
+        }
+
         public void DrawMesh(System.Windows.Forms.PictureBox pictureBox, Graphics g)
         {
             g.DrawLine(new Pen(Brushes.Black), pictureWidth / 2.0f, 0, pictureWidth / 2.0f, pictureHeight);

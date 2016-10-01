@@ -55,7 +55,9 @@
     </Compile>
     <Compile Include="Functions\Function1D.cs" />
     <Compile Include="Interfaces\IFunctionInterface.cs" />
+    <Compile Include="Networks\DataManipulation.cs" />
     <Compile Include="Networks\MLPNetwork.cs" />
+    <Compile Include="Networks\RbfNetwork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Form1.resx">

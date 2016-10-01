@@ -31,13 +31,14 @@ namespace zadanie_1
             g.Clear(Color.White);
             pictureBox1.Refresh();
 
-            f = new Function1D(-9, 9, 100, pictureBox1.Width, pictureBox1.Height);
+            f = new Function1D(-9, 9, 110, pictureBox1.Width, pictureBox1.Height);
             f.DrawMesh(pictureBox1, g);
             f.DrawFunction(pictureBox1,g);
 
             network = new MLPNetwork(f);
             network.TrainNetwork();
-            f.DrawResultAsPoints(pictureBox1, g, network.ReturnResult());
+            //f.DrawResultAsPoints(pictureBox1, g, network.ReturnResult());
+            f.DrawResultAsCurve(pictureBox1, g, network.ReturnResult());
         }
 
         private void Form1_Load(object sender, EventArgs e)

@@ -55,7 +55,7 @@ namespace zadanie_1.Networks
             //double[][] ideal = GetNormalized2DData(function.GetFIdeal());
 
             //IMLDataSet trainingSet = new BasicMLDataSet(input, ideal);
-            IMLDataSet trainingSet = GetDataSetFromOneDimensionalArrays(function.GetFInput(), function.GetFIdeal());
+            IMLDataSet trainingSet = DataManipulation.GetBasicDataSetFromOneDimensionalArrays(function.GetFInput(), function.GetFIdeal());
 
             // train the neural network
             IMLTrain train = new ResilientPropagation(network, trainingSet);
@@ -86,33 +86,6 @@ namespace zadanie_1.Networks
             }
         }
 
-        /// <summary>
-        /// Method returns IMLDataSet from input and ideal double[] arrays.
-        /// </summary>
-        /// <param name="input">The input data.</param>
-        /// <param name="ideal">The ideal data.</param>
-        /// <param name="normalizeData">Indicates whether the data should be normalized.</param>
-        /// <returns></returns>
-        private IMLDataSet GetDataSetFromOneDimensionalArrays(double[] input, double[] ideal, bool normalizeData = true)
-        {
-            var result = new BasicMLDataSet();
-            var minInput = input.Min();
-            var maxInput = input.Max();
-            var minIdeal = ideal.Min();
-            var maxIdeal = ideal.Max();
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                var inputData = normalizeData ? 
-                    new BasicMLData(GetNormalized1DData(input[i], minInput, maxInput)) : new BasicMLData(GetNormalized1DData(input[i], minInput, maxInput, false));
-                var idealData = normalizeData ? 
-                    new BasicMLData(GetNormalized1DData(ideal[i], minIdeal, maxIdeal)) : new BasicMLData(GetNormalized1DData(ideal[i], minIdeal, maxIdeal, false));
-                result.Add(new BasicMLDataPair(inputData, idealData));
-            }
-
-            return result;
-        }
-
         public double[] ReturnResult()
         { 
             double[] res = new double[result.Length];
@@ -129,73 +102,5 @@ namespace zadanie_1.Networks
 
             return res; 
         }
-
-        #region Data normalization
-        private double[][] GetNormalized2DData(double[] data)
-        {
-            double min = data.Min();
-            double max = data.Max();
-
-            //mapovanie na [-1,1]
-            //double a = 2.0d / (double)(max - min);
-            //double b = -a * min - 1;
-
-            //mapovanie na [0,1]
-            double a = 1.0d / (double)(max - min);
-            double b = -a * min;
-
-            double[][] normalizedData = new double[data.Length][];
-
-            for (int i = 0; i < data.Length; i++)
-            {
-                normalizedData[i] = new double[1];
-                normalizedData[i][0] = a * data[i] + b;
-            }
-
-            return normalizedData;
-        }
-
-        private double[] GetNormalized1DData(double[] data)
-        {
-            double min = data.Min();
-            double max = data.Max();
-
-            //mapovanie na [-1,1]
-            //double a = 2.0d / (double)(max - min);
-            //double b = -a * min - 1;
-
-            //mapovanie na [0,1]
-            double a = 1.0d / (double)(max - min);
-            double b = -a * min;
-
-            double[] normalizedData = new double[data.Length];
-
-            for (int i = 0; i < data.Length; i++)
-                normalizedData[i] = a * data[i] + b;
-
-            return normalizedData;
-        }
-
-        private double[] GetNormalized1DData(double data, double min, double max, bool normalizeData = true)
-        {
-            //mapovanie na [-1,1]
-            //double a = 2.0d / (double)(max - min);
-            //double b = -a * min - 1;
-
-            //mapovanie na [0,1]
-            double a = 1.0d, b = 1.0d;
-            if(normalizeData)
-            {
-                a = 1.0d / (double)(max - min);
-                b = -a * min;
-            }
-
-            double[] normalizedData = new double[1];
-            normalizedData[0] = a * data + b;
-
-            return normalizedData;
-        }
-
-        #endregion
     }
 }
