@@ -1,4 +1,6 @@
-﻿using System;
+﻿//https://github.com/encog/encog-dotnet-core/blob/master/encog-core-cs/Util/NetworkUtil/TrainerHelper.cs
+
+using System;
 using System.Linq;
 
 using Encog.ML.Data;

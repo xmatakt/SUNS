@@ -36,7 +36,7 @@ namespace zadanie_1.Networks
             // from the previous layer 
             network.AddLayer(new BasicLayer(null, true, 1));
             //hidden layer
-            network.AddLayer(new BasicLayer(new ActivationTANH(), true, 10));
+            network.AddLayer(new BasicLayer(sad(), true, 10));
             network.AddLayer(new BasicLayer(new ActivationTANH(), true, 10));
             network.AddLayer(new BasicLayer(new ActivationTANH(), true, 10));
             network.AddLayer(new BasicLayer(new ActivationTANH(), true, 10));
@@ -46,6 +46,11 @@ namespace zadanie_1.Networks
 
             network.Structure.FinalizeStructure();
             network.Reset();
+        }
+
+        ActivationTANH sad()
+        {
+            return new ActivationTANH();
         }
 
         public void TrainNetwork()

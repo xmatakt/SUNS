@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using zadanie_1.functions;
 using zadanie_1.Networks;
+using zadanie_1.Forms;
 
 namespace zadanie_1
 {
@@ -19,7 +20,9 @@ namespace zadanie_1
         private Bitmap bmp;
         private Graphics g;
         private Function1D f;
-        private MLPNetwork network;
+        private MLPNetwork mlpNetwork;
+        private RbfNetwork rbfNetwork;
+        private MLPNetworkForm mlpForm;
 
         public Form1()
         {
@@ -35,15 +38,26 @@ namespace zadanie_1
             f.DrawMesh(pictureBox1, g);
             f.DrawFunction(pictureBox1,g);
 
-            network = new MLPNetwork(f);
-            network.TrainNetwork();
-            //f.DrawResultAsPoints(pictureBox1, g, network.ReturnResult());
-            f.DrawResultAsCurve(pictureBox1, g, network.ReturnResult());
+            mlpNetwork = new MLPNetwork(f);
+            mlpNetwork.TrainNetwork();
+            f.DrawResultAsCurve(pictureBox1, g, mlpNetwork.ReturnResult());
+
+            mlpForm = new MLPNetworkForm(this, mlpNetwork);
+            //rbfNetwork = new RbfNetwork(f);
+            //rbfNetwork.TrainNetwork();
+            //f.DrawResultAsCurve(pictureBox1, g, rbfNetwork.ReturnResult());
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void mLPNetworkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mlpForm.StartPosition = FormStartPosition.Manual;
+            mlpForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
+            mlpForm.Show();
         }
     }
 }
