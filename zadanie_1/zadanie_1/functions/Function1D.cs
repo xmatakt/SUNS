@@ -53,6 +53,23 @@ namespace zadanie_1.functions
             delY = pictureHeight/(double)(2d * Math.Max(Math.Abs(fIdeal.Min()), Math.Abs(fIdeal.Max())));
         }
 
+        public double Function(double x)
+        {
+            //return x * x;
+            //return -Math.Abs(x);
+            if (x >= -9 && x <= -3)
+                return x * x + 12 * x + 36;
+            if (x >= -3 && x <= 3)
+                return x * x;
+            if (x >= 3 && x <= 9)
+                return x * x - 12 * x + 36;
+            return 0;
+        }
+
+        public double[] GetFInput() { return fInput; }
+
+        public double[] GetFIdeal() { return fIdeal; }
+
         #region Drawing
         public void DrawFunction(System.Windows.Forms.PictureBox pictureBox, Graphics g)
         {
@@ -61,6 +78,25 @@ namespace zadanie_1.functions
             {
                 g.DrawLine(pen, GetXCoord(fInput[i - 1]), GetYCoord(fIdeal[i-1]),
                     GetXCoord(fInput[i]), GetYCoord(fIdeal[i]));    
+            }
+
+            pictureBox.Refresh();
+        }
+
+        /// <summary>
+        /// Vykresli vystup z neuronovej siete ako diskretne body
+        /// </summary>
+        /// <param name="pictureBox"></param>
+        /// <param name="g"></param>
+        /// <param name="result">Vysledok z neuronovej siete.</param>
+        public void DrawResultAsPoints(System.Windows.Forms.PictureBox pictureBox, Graphics g, double[] result)
+        {
+            Pen pen = new Pen(Brushes.Red);
+            for (int i = 0; i < result.Length; i++)
+            {
+                g.DrawEllipse(pen, GetXCoord(fInput[i]), GetYCoord(result[i]), 2.5f, 2.5f);
+                //g.DrawLine(pen, GetXCoord(fInput[i - 1]), GetYCoord(fIdeal[i - 1]),
+                //    GetXCoord(fInput[i]), GetYCoord(fIdeal[i]));
             }
 
             pictureBox.Refresh();
@@ -92,19 +128,7 @@ namespace zadanie_1.functions
         }
 #endregion
 
-        public double Function(double x)
-        {
-            //return x*x;
-            //return -Math.Abs(x);
-            if (x >= -9 && x <= -3)
-                return x * x + 12 * x + 36;
-            if (x >= -3 && x <= 3)
-                return x * x;
-            if (x >= 3 && x <= 9)
-                return x * x - 12 * x + 36;
-            return 0;
-        }
-
+        #region Help functions
         private void SwitchBorders()
         {
             if (rightBorder < leftBorder)
@@ -124,5 +148,6 @@ namespace zadanie_1.functions
         {
             return (float)(-delY * y + pictureHeight / 2d);
         }
+        #endregion
     }
 }
