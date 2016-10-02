@@ -170,6 +170,15 @@ namespace zadanie_1.functions
             pictureBox.Refresh();
         }
 
+        public void DrawLegend(System.Windows.Forms.PictureBox pictureBox, Graphics g, int epochCount, string text)
+        {
+            g.DrawLine(new Pen(Brushes.Blue, 3), pictureWidth - 130, pictureHeight - 70, pictureWidth - 110, pictureHeight - 70);
+            g.DrawString("F(x)", new Font(FontFamily.GenericSansSerif, 8.0f, FontStyle.Bold), Brushes.Black, pictureWidth - 100, pictureHeight - 75);
+            g.DrawLine(new Pen(Brushes.Red, 3), pictureWidth - 130, pictureHeight - 50, pictureWidth - 110, pictureHeight - 50);
+            g.DrawString("F(x) approximation", new Font(FontFamily.GenericSansSerif, 8.0f, FontStyle.Bold), Brushes.Black, pictureWidth - 100, pictureHeight - 55);
+            g.DrawString(text + epochCount, new Font(FontFamily.GenericSansSerif, 8.0f, FontStyle.Bold), Brushes.Black, pictureWidth - 100, pictureHeight - 35);
+        }
+
         public void ClearMesh(System.Windows.Forms.PictureBox pictureBox, Graphics g)
         {
             g.Clear(Color.White);

@@ -54,6 +54,7 @@ namespace zadanie_1.Forms
         private void DrawFunction(bool drawMesh = true)
         {
             function.DrawFunction(pictureBox, graphics);
+            function.DrawLegend(pictureBox, graphics, mlpNetwork.ReturnError().Length, "Epochs: ");
 
             if(drawMesh)
                 function.DrawMesh(pictureBox, graphics);
