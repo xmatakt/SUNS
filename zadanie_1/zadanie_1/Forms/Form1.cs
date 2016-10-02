@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//nepotrebny komentar
+// vymazane
 
 using System.Drawing.Imaging;
 using zadanie_1.functions;
