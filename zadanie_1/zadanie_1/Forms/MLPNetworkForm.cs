@@ -14,22 +14,31 @@ using Encog.Engine.Network.Activation;
 
 using zadanie_1.Enums;
 using zadanie_1.Networks;
+using zadanie_1.functions;
 
 namespace zadanie_1.Forms
 {
     public partial class MLPNetworkForm : Form
     {
         private int numOfLayers = 1;
+        private Function1D function;
         private Button actualButton;
         private MLPNetwork mlpNetwork;
-        private Form1 mainForm;
+        private PictureBox pictureBox;
+        private Graphics graphics;
 
-        public MLPNetworkForm(Form1 mainForm, object mlpNetwork)
+        public MLPNetworkForm(PictureBox pictureBox, Graphics graphics, object function)
         {
-            this.mlpNetwork = (MLPNetwork)mlpNetwork;
-            this.mainForm = mainForm;
+            this.function = (Function1D)function;
+            this.pictureBox = pictureBox;
+            this.graphics = graphics;
+
+            this.mlpNetwork = new MLPNetwork(this.function);
+            //this.mlpNetwork.TrainNetwork();
 
             InitializeComponent();
+
+            //DrawFunction();
         }
 
         private void MLPNetworkForm_Load(object sender, EventArgs e)
@@ -39,6 +48,23 @@ namespace zadanie_1.Forms
             activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.ActivationSin.ToString());
             activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.ActivationRamp.ToString());
         }
+
+        #region Drawing
+
+        private void DrawFunction(bool drawMesh = true)
+        {
+            function.DrawFunction(pictureBox, graphics);
+
+            if(drawMesh)
+                function.DrawMesh(pictureBox, graphics);
+        }
+
+        private void DrawResult()
+        {
+            function.DrawResultAsCurve(pictureBox, graphics, mlpNetwork.ReturnResult());
+        }
+
+        #endregion
 
         #region AddingControls
         private void AddNewButton()
@@ -66,7 +92,7 @@ namespace zadanie_1.Forms
             newUpDown.Maximum = neuronsCount_1.Maximum;
             newUpDown.Increment = 1;
             newUpDown.TextAlign = neuronsCount_1.TextAlign;
-            newUpDown.Value = 1m;
+            newUpDown.Value = neuronsCount_1.Value;
             //newUpDown.Click += new System.EventHandler(this.activationFunctionButton_1_Click);
 
             this.Controls.Add(newUpDown);
@@ -86,24 +112,14 @@ namespace zadanie_1.Forms
         private void GrowWindow()
         {
             int yOffset = 25;
-
-            addLayerButton.Location = new Point(addLayerButton.Location.X, addLayerButton.Location.Y + yOffset);
-            removeLayerButton.Location = new Point(removeLayerButton.Location.X, removeLayerButton.Location.Y + yOffset);
-            generateNetworkButton.Location = new Point(generateNetworkButton.Location.X, generateNetworkButton.Location.Y + yOffset); 
             this.Height += yOffset;
-
             numOfLayers++;
         }
 
         private void ShrinkWindow()
         {
             int yOffset = -25;
-
-            addLayerButton.Location = new Point(addLayerButton.Location.X, addLayerButton.Location.Y + yOffset);
-            removeLayerButton.Location = new Point(removeLayerButton.Location.X, removeLayerButton.Location.Y + yOffset);
-            generateNetworkButton.Location = new Point(generateNetworkButton.Location.X, generateNetworkButton.Location.Y + yOffset);
             this.Height += yOffset;
-
             numOfLayers--;
         }
         #endregion
@@ -119,6 +135,53 @@ namespace zadanie_1.Forms
                 ShrinkWindow();
             }
         }
+        #endregion
+
+        #region Layer adding
+        private void AddLayer(BasicNetwork network, int i)
+        {
+
+            Button button = (Button)this.Controls.Find("activationFunctionButton_" + i, false).First();
+            NumericUpDown numUpDown = (NumericUpDown)this.Controls.Find("neuronsCount_" + i, false).First();
+            CheckBox checkBox = (CheckBox)this.Controls.Find("biasCheckBox_" + i, false).First();
+            bool hasBias = checkBox.Checked;
+
+            switch (AddLayer(button))
+            {
+                case ActivationFunctionEnum.ActivationSigmoid:
+                    network.AddLayer(new BasicLayer(new ActivationSigmoid(), hasBias, (int)numUpDown.Value));
+                    break;
+                case ActivationFunctionEnum.ActivationTanh:
+                    network.AddLayer(new BasicLayer(new ActivationTANH(), hasBias, (int)numUpDown.Value));
+                    break;
+                case ActivationFunctionEnum.ActivationSin:
+                    network.AddLayer(new BasicLayer(new ActivationSIN(), hasBias, (int)numUpDown.Value));
+                    break;
+                case ActivationFunctionEnum.ActivationRamp:
+                    network.AddLayer(new BasicLayer(new ActivationRamp(), hasBias, (int)numUpDown.Value));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private ActivationFunctionEnum AddLayer(Button button)
+        {
+            switch (button.Text)
+            {
+                case ActivationFunctionStrings.ActivationSigmoid:
+                    return ActivationFunctionEnum.ActivationSigmoid;
+                case ActivationFunctionStrings.ActivationTanh:
+                    return ActivationFunctionEnum.ActivationTanh;
+                case ActivationFunctionStrings.ActivationSin:
+                    return ActivationFunctionEnum.ActivationSin;
+                case ActivationFunctionStrings.ActivationRamp:
+                    return ActivationFunctionEnum.ActivationRamp;
+                default:
+                    return ActivationFunctionEnum.ActivationSigmoid;
+            }
+        }
+
         #endregion
 
         private void button1_Click(object sender, EventArgs e)
@@ -146,6 +209,62 @@ namespace zadanie_1.Forms
         private void button1_Click_1(object sender, EventArgs e)
         {
             RemoveLastControls();
+        }
+
+        private void MLPNetworkForm_Shown(object sender, EventArgs e)
+        {
+            //DrawFunction();
+        }
+
+        private void generateNetworkButton_Click(object sender, EventArgs e)
+        {
+            BasicNetwork network = new BasicNetwork();
+            
+            //input layer
+            network.AddLayer(new BasicLayer(null, true, 1));
+            //hidden layers
+            for (int i = 1; i <= numOfLayers; i++)
+                AddLayer(network, i);
+            //output layer
+            network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
+
+            network.Structure.FinalizeStructure();
+            network.Reset();
+            mlpNetwork.SetNetwork(network);
+            mlpNetwork.TrainNetwork();
+
+            graphics.Clear(Color.White);
+            DrawFunction();
+            DrawResult();
+
+            showLogButton.Enabled = true;
+            errorGraphButton.Enabled = true;
+        }
+
+        private void errorGraphButton_Click(object sender, EventArgs e)
+        {
+            ErrorGraphForm form = new ErrorGraphForm();
+            form.Error = mlpNetwork.ReturnError();
+            form.ShowDialog();
+            //if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //    MessageBox.Show("je to ok");
+        }
+
+        protected override void WndProc(ref Message message)
+        {
+            const int WM_SYSCOMMAND = 0x0112;
+            const int SC_MOVE = 0xF010;
+
+            switch (message.Msg)
+            {
+                case WM_SYSCOMMAND:
+                    int command = message.WParam.ToInt32() & 0xfff0;
+                    if (command == SC_MOVE)
+                        return;
+                    break;
+            }
+
+            base.WndProc(ref message);
         }
     }
 }

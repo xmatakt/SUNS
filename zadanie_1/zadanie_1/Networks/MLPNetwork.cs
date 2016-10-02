@@ -26,35 +26,38 @@ namespace zadanie_1.Networks
         private BasicNetwork network;
         private Function1D function;
         private double[] result;
+        private List<double> error;
+
+        public int NumOfEpochs { get; set; }
+        public double Error { get; set; }
 
         public MLPNetwork(Function1D function)
         {
             this.function = function;
-            network = new BasicNetwork();
+            this.NumOfEpochs = 10000;
+            this.Error = 0.01;
+            //network = new BasicNetwork();
 
-            // the input layer does not have an activation function, because activation functions affects data coming
-            // from the previous layer 
-            network.AddLayer(new BasicLayer(null, true, 1));
-            //hidden layer
-            network.AddLayer(new BasicLayer(sad(), true, 10));
-            network.AddLayer(new BasicLayer(new ActivationTANH(), true, 10));
-            network.AddLayer(new BasicLayer(new ActivationTANH(), true, 10));
-            network.AddLayer(new BasicLayer(new ActivationTANH(), true, 10));
+            //// the input layer does not have an activation function, because activation functions affects data coming
+            //// from the previous layer 
+            //network.AddLayer(new BasicLayer(null, true, 1));
+            ////hidden layer
+            //network.AddLayer(new BasicLayer(new ActivationSigmoid(), true, 1));
+            //// the output layer does not have bias neurons, because bias neuron affects the next layer
+            //network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
 
-            // the output layer does not have bias neurons, because bias neuron affects the next layer
-            network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
-
-            network.Structure.FinalizeStructure();
-            network.Reset();
+            //network.Structure.FinalizeStructure();
+            //network.Reset();
         }
 
-        ActivationTANH sad()
-        {
-            return new ActivationTANH();
+        public void SetNetwork(BasicNetwork network)
+        { 
+            this.network = network;
         }
 
         public void TrainNetwork()
         {
+            this.error = new List<double>();
             // create training data
             //double[][] input = GetNormalized2DData(function.GetFInput());
             //double[][] ideal = GetNormalized2DData(function.GetFIdeal());
@@ -72,9 +75,10 @@ namespace zadanie_1.Networks
             do
             {
                 train.Iteration();
-                //System.Diagnostics.Debug.WriteLine(@"Epoch #" + epoch + @" Error:" + train.Error);
+                System.Diagnostics.Debug.WriteLine(@"Epoch #" + epoch + @" Error:" + train.Error);
+                error.Add(train.Error);
                 epoch++;
-            } while (train.Error > 0.01);
+            } while ((epoch <= NumOfEpochs) && (train.Error > Error));
 
             train.FinishTraining();
 
@@ -106,6 +110,11 @@ namespace zadanie_1.Networks
             }
 
             return res; 
+        }
+
+        public double[] ReturnError()
+        {
+            return error.ToArray();
         }
     }
 }

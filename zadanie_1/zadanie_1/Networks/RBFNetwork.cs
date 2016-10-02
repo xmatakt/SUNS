@@ -26,11 +26,15 @@ namespace zadanie_1.Networks
         private SVDTraining train;
         private Function1D function;
         private double[] result;
+        private INeuralDataSet trainingSet;
+        private List<double> error;
+
         //Specify the number of dimensions and the number of neurons per dimension
         private int dimensions = 1;
         // could be also 16, 64, 256. I suppose it should accept 8, 32 but it needs additional investigation
         public int NumNeuronsPerDimension { get; set; }
         public double Error { get; set; }
+        public int maxEpochCount { get; set; }
         //RBF can struggle when it comes to flats at the edge of the sample space.
         //We have added the ability to include wider neurons on the sample space boundary which greatly
         //improves fitting to flats
@@ -40,32 +44,35 @@ namespace zadanie_1.Networks
         {
             this.function = function;
             this.NumNeuronsPerDimension = neuronsCount;
+            Error = 0.01d;
+            maxEpochCount = 1000;
+            trainingSet = DataManipulation.GetNeuralDataSetFromOneDimensionalArrays(function.GetFInput(), function.GetFIdeal());
             //Set the standard RBF neuron width. 
         }
 
-        private void InitNetwork(INeuralDataSet trainingSet)
+        private void InitNetwork()
         {
             //Literature seems to suggest this is a good default value.
             double volumeNeuronWidth = 2.0 / ++NumNeuronsPerDimension;
             network = new RBFNetwork(dimensions, NumNeuronsPerDimension, 1, RBFEnum.Gaussian);
             network.SetRBFCentersAndWidthsEqualSpacing(0, 1, RBFEnum.Gaussian, volumeNeuronWidth, includeEdgeRBFs);
             SVDTraining train = new SVDTraining(network, trainingSet);
-            Error = 0.01d;
         }
 
         public void TrainNetwork()
         {
-            INeuralDataSet trainingSet = DataManipulation.GetNeuralDataSetFromOneDimensionalArrays(function.GetFInput(), function.GetFIdeal());
-
+            this.error = new List<double>();
             int epoch = 1;
+
             do
             {
-                InitNetwork(trainingSet);
+                InitNetwork();
                 train = new SVDTraining(network, trainingSet);
                 train.Iteration();
-                Console.WriteLine("Epoch #" + epoch + " Error:" + train.Error + " Neurons count: " + -100);
+                error.Add(train.Error);
+                Console.WriteLine("Epoch #" + epoch + " Error:" + train.Error + " Neurons count: " + NumNeuronsPerDimension);
                 epoch++;
-            } while ((train.Error > Error));
+            } while ((train.Error > Error) && (epoch <= maxEpochCount));
 
             result = new double[trainingSet.Count];
             int index = 0;
@@ -95,6 +102,11 @@ namespace zadanie_1.Networks
             }
 
             return res;
+        }
+
+        public double[] ReturnError()
+        {
+            return error.ToArray();
         }
     }
 }

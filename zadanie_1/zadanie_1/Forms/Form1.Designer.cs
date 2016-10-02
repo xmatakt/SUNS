@@ -77,6 +77,7 @@
             this.rBFNetworkToolStripMenuItem.Name = "rBFNetworkToolStripMenuItem";
             this.rBFNetworkToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.rBFNetworkToolStripMenuItem.Text = "RBF network";
+            this.rBFNetworkToolStripMenuItem.Click += new System.EventHandler(this.rBFNetworkToolStripMenuItem_Click);
             // 
             // Form1
             // 

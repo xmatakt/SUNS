@@ -20,9 +20,10 @@ namespace zadanie_1
         private Bitmap bmp;
         private Graphics g;
         private Function1D f;
-        private MLPNetwork mlpNetwork;
-        private RbfNetwork rbfNetwork;
+        //private MLPNetwork mlpNetwork;
+        //private RbfNetwork rbfNetwork;
         private MLPNetworkForm mlpForm;
+        private RBFNetworkForm rbfForm;
 
         public Form1()
         {
@@ -35,14 +36,13 @@ namespace zadanie_1
             pictureBox1.Refresh();
 
             f = new Function1D(-9, 9, 110, pictureBox1.Width, pictureBox1.Height);
-            f.DrawMesh(pictureBox1, g);
-            f.DrawFunction(pictureBox1,g);
+            //f.DrawMesh(pictureBox1, g);
+            //f.DrawFunction(pictureBox1,g);
 
-            mlpNetwork = new MLPNetwork(f);
-            mlpNetwork.TrainNetwork();
-            f.DrawResultAsCurve(pictureBox1, g, mlpNetwork.ReturnResult());
-
-            mlpForm = new MLPNetworkForm(this, mlpNetwork);
+          
+            //f.DrawResultAsCurve(pictureBox1, g, mlpNetwork.ReturnResult());
+            mlpForm = new MLPNetworkForm(pictureBox1, g, f);
+            rbfForm = new RBFNetworkForm(pictureBox1, g, f);
             //rbfNetwork = new RbfNetwork(f);
             //rbfNetwork.TrainNetwork();
             //f.DrawResultAsCurve(pictureBox1, g, rbfNetwork.ReturnResult());
@@ -55,9 +55,22 @@ namespace zadanie_1
 
         private void mLPNetworkToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (mlpForm.IsDisposed)
+                mlpForm = new MLPNetworkForm(pictureBox1, g, f);
+
             mlpForm.StartPosition = FormStartPosition.Manual;
             mlpForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
             mlpForm.Show();
+        }
+
+        private void rBFNetworkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (rbfForm.IsDisposed)
+                rbfForm = new RBFNetworkForm(pictureBox1, g, f);
+
+            rbfForm.StartPosition = FormStartPosition.Manual;
+            rbfForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
+            rbfForm.Show();
         }
     }
 }
