@@ -17,8 +17,12 @@ namespace zadanie_1.functions
         private double leftBorder;
         private double rightBorder;
         private int nodesCount;
-        private double[] fInput;
-        private double[] fIdeal;
+        private int trainNodesCount;
+        private int testNodesCount;
+        private double[] trainInput;
+        private double[] trainIdeal;
+        private double[] testInput;
+        private double[] testIdeal;
         private double delX = -1;
         private double delY = -1;
 
@@ -28,35 +32,64 @@ namespace zadanie_1.functions
         {
             leftBorder = left;
             rightBorder = right;
-            nodesCount = count;
             pictureWidth = width;
             pictureHeight = height;
+
+            int tmp = count % 100;
+            if (tmp < 50 && count > 100)
+                count -= tmp;
+            else
+                count += tmp;
+
+            nodesCount = count;
+            trainNodesCount = (int)(nodesCount * 0.8);
+            testNodesCount = nodesCount - trainNodesCount;
 
             InitFunction();
         }
 
         public void InitFunction()
         {
-            fInput = new double[nodesCount+1];
-            fIdeal = new double[nodesCount+1];
+            trainInput = new double[trainNodesCount + 2];
+            trainIdeal = new double[trainNodesCount + 2];
+            testInput = new double[testNodesCount + 1];
+            testIdeal = new double[testNodesCount + 1];
             
             SwitchBorders();
             double delimeter = (rightBorder - leftBorder) / (double)nodesCount;
-            
+
+            int testIndex = 0;
+            int trainIndex = 0;
             for (int i = 0; i <= nodesCount; i++)
             {
-                fInput[i] = leftBorder + i * delimeter;
-                fIdeal[i] = Function(fInput[i]);
+                if(i == 0 || i == nodesCount)
+                {
+                    trainInput[trainIndex] = leftBorder + i * delimeter;
+                    trainIdeal[trainIndex] = Function(trainInput[trainIndex++]);
+                    testInput[testIndex] = leftBorder + i * delimeter;
+                    testIdeal[testIndex] = Function(testInput[testIndex++]);
+                }
+                else
+                {
+                    if (i % 5 == 0)
+                    {
+                        testInput[testIndex] = leftBorder + i * delimeter;
+                        testIdeal[testIndex] = Function(testInput[testIndex++]);
+                    }
+                    else
+                    {
+                        trainInput[trainIndex] = leftBorder + i * delimeter;
+                        trainIdeal[trainIndex] = Function(trainInput[trainIndex++]);
+                    }
+                }
             }
 
             delX = pictureWidth/(double)(2d * Math.Max(Math.Abs(leftBorder), Math.Abs(rightBorder)));
-            delY = pictureHeight/(double)(2d * Math.Max(Math.Abs(fIdeal.Min()), Math.Abs(fIdeal.Max())));
+            delY = pictureHeight / (double)(2d * Math.Max(Math.Abs(trainIdeal.Min()), Math.Abs(trainIdeal.Max())));
         }
 
         public double Function(double x)
         {
-            //return x * x;
-            //return -Math.Abs(x);
             if (x >= -9 && x <= -3)
                 return x * x + 12 * x + 36;
             if (x >= -3 && x <= 3)
@@ -66,18 +99,22 @@ namespace zadanie_1.functions
             return 0;
         }
 
-        public double[] GetFInput() { return fInput; }
+        public double[] GetTrainInput() { return trainInput; }
 
-        public double[] GetFIdeal() { return fIdeal; }
+        public double[] GetTrainIdeal() { return trainIdeal; }
+
+        public double[] GetTestInput() { return testInput; }
+
+        public double[] GetTestIdeal() { return testIdeal; }
 
         #region Drawing
         public void DrawFunction(System.Windows.Forms.PictureBox pictureBox, Graphics g)
         {
             Pen pen = new Pen(Brushes.Blue);
-            for (int i = 1; i < fInput.Length; i++)
+            for (int i = 1; i < trainInput.Length; i++)
             {
-                g.DrawLine(pen, GetXCoord(fInput[i - 1]), GetYCoord(fIdeal[i-1]),
-                    GetXCoord(fInput[i]), GetYCoord(fIdeal[i]));    
+                g.DrawLine(pen, GetXCoord(trainInput[i - 1]), GetYCoord(trainIdeal[i - 1]),
+                    GetXCoord(trainInput[i]), GetYCoord(trainIdeal[i]));    
             }
 
             pictureBox.Refresh();
@@ -94,7 +131,7 @@ namespace zadanie_1.functions
             Pen pen = new Pen(Brushes.Red);
             for (int i = 0; i < result.Length; i++)
             {
-                g.DrawEllipse(pen, GetXCoord(fInput[i]), GetYCoord(result[i]), 2.5f, 2.5f);
+                g.DrawEllipse(pen, GetXCoord(trainInput[i]), GetYCoord(result[i]), 2.5f, 2.5f);
                 //g.DrawLine(pen, GetXCoord(fInput[i - 1]), GetYCoord(fIdeal[i - 1]),
                 //    GetXCoord(fInput[i]), GetYCoord(fIdeal[i]));
             }
@@ -107,8 +144,8 @@ namespace zadanie_1.functions
             Pen pen = new Pen(Brushes.Red);
             for (int i = 1; i < result.Length; i++)
             {
-                g.DrawLine(pen, GetXCoord(fInput[i - 1]), GetYCoord(result[i - 1]),
-                    GetXCoord(fInput[i]), GetYCoord(result[i]));
+                g.DrawLine(pen, GetXCoord(testInput[i - 1]), GetYCoord(result[i - 1]),
+                    GetXCoord(testInput[i]), GetYCoord(result[i]));
             }
 
             pictureBox.Refresh();
@@ -127,7 +164,7 @@ namespace zadanie_1.functions
                 //g.DrawString(i.ToString(),new Font(FontFamily.GenericSansSerif, 10.0f),Brushes.Black,i,pictureHeight/2);
             }
             //vodorovne ciary
-            for (float i = 0; i <= pictureHeight; i += (float)delY)
+            for (float i = 0; i <= pictureHeight; i += (float)delX)
                 g.DrawLine(pen, 0, i, pictureWidth, i);
 
             pictureBox.Refresh();

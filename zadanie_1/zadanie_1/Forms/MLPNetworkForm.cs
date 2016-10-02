@@ -140,7 +140,6 @@ namespace zadanie_1.Forms
         #region Layer adding
         private void AddLayer(BasicNetwork network, int i)
         {
-
             Button button = (Button)this.Controls.Find("activationFunctionButton_" + i, false).First();
             NumericUpDown numUpDown = (NumericUpDown)this.Controls.Find("neuronsCount_" + i, false).First();
             CheckBox checkBox = (CheckBox)this.Controls.Find("biasCheckBox_" + i, false).First();
@@ -231,6 +230,8 @@ namespace zadanie_1.Forms
             network.Structure.FinalizeStructure();
             network.Reset();
             mlpNetwork.SetNetwork(network);
+            mlpNetwork.Error = (double)requiredErrorUpDown.Value;
+            mlpNetwork.maxEpochCount = (int)maxCountNumericUpDown.Value;
             mlpNetwork.TrainNetwork();
 
             graphics.Clear(Color.White);

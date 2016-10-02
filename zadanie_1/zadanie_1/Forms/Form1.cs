@@ -24,6 +24,8 @@ namespace zadanie_1
         //private RbfNetwork rbfNetwork;
         private MLPNetworkForm mlpForm;
         private RBFNetworkForm rbfForm;
+        private FunctionPropertiesForm functionPropertiesForm;
+        private int nodesCount = 100;
 
         public Form1()
         {
@@ -35,7 +37,7 @@ namespace zadanie_1
             g.Clear(Color.White);
             pictureBox1.Refresh();
 
-            f = new Function1D(-9, 9, 110, pictureBox1.Width, pictureBox1.Height);
+            f = new Function1D(-9, 9, nodesCount, pictureBox1.Width, pictureBox1.Height);
             //f.DrawMesh(pictureBox1, g);
             //f.DrawFunction(pictureBox1,g);
 
@@ -43,6 +45,7 @@ namespace zadanie_1
             //f.DrawResultAsCurve(pictureBox1, g, mlpNetwork.ReturnResult());
             mlpForm = new MLPNetworkForm(pictureBox1, g, f);
             rbfForm = new RBFNetworkForm(pictureBox1, g, f);
+            functionPropertiesForm = new FunctionPropertiesForm();
             //rbfNetwork = new RbfNetwork(f);
             //rbfNetwork.TrainNetwork();
             //f.DrawResultAsCurve(pictureBox1, g, rbfNetwork.ReturnResult());
@@ -71,6 +74,30 @@ namespace zadanie_1
             rbfForm.StartPosition = FormStartPosition.Manual;
             rbfForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
             rbfForm.Show();
+        }
+
+        private void functionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (rbfForm.IsDisposed || mlpForm.IsDisposed)
+            {
+                functionPropertiesForm.StartPosition = FormStartPosition.Manual;
+                functionPropertiesForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
+                if (functionPropertiesForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    nodesCount = functionPropertiesForm.nodesCount;
+                    f = new Function1D(-9, 9, nodesCount, pictureBox1.Width, pictureBox1.Height);
+
+                    if (mlpForm.IsDisposed)
+                        mlpForm = new MLPNetworkForm(pictureBox1, g, f);
+
+                    if (rbfForm.IsDisposed)
+                        rbfForm = new RBFNetworkForm(pictureBox1, g, f);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You have to close MLPNetworkForm \n or RBFNetworkForm first!","Vnimanie!",MessageBoxButtons.OK,MessageBoxIcon.Hand);
+            }
         }
     }
 }

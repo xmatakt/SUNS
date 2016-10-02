@@ -33,6 +33,7 @@
             this.networksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mLPNetworkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rBFNetworkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.functionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +50,8 @@
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.networksToolStripMenuItem});
+            this.networksToolStripMenuItem,
+            this.functionToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(784, 28);
@@ -79,6 +81,13 @@
             this.rBFNetworkToolStripMenuItem.Text = "RBF network";
             this.rBFNetworkToolStripMenuItem.Click += new System.EventHandler(this.rBFNetworkToolStripMenuItem_Click);
             // 
+            // functionToolStripMenuItem
+            // 
+            this.functionToolStripMenuItem.Name = "functionToolStripMenuItem";
+            this.functionToolStripMenuItem.Size = new System.Drawing.Size(77, 24);
+            this.functionToolStripMenuItem.Text = "Function";
+            this.functionToolStripMenuItem.Click += new System.EventHandler(this.functionToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -105,6 +114,7 @@
         private System.Windows.Forms.ToolStripMenuItem networksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mLPNetworkToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rBFNetworkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem functionToolStripMenuItem;
     }
 }
 

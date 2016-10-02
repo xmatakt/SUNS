@@ -27,6 +27,7 @@ namespace zadanie_1.Networks
         private Function1D function;
         private double[] result;
         private INeuralDataSet trainingSet;
+        private INeuralDataSet testSet;
         private List<double> error;
 
         //Specify the number of dimensions and the number of neurons per dimension
@@ -46,7 +47,8 @@ namespace zadanie_1.Networks
             this.NumNeuronsPerDimension = neuronsCount;
             Error = 0.01d;
             maxEpochCount = 1000;
-            trainingSet = DataManipulation.GetNeuralDataSetFromOneDimensionalArrays(function.GetFInput(), function.GetFIdeal());
+            trainingSet = DataManipulation.GetNeuralDataSetFromOneDimensionalArrays(function.GetTrainInput(), function.GetTrainIdeal());
+            testSet = DataManipulation.GetNeuralDataSetFromOneDimensionalArrays(function.GetTestInput(), function.GetTestIdeal());
             //Set the standard RBF neuron width. 
         }
 
@@ -74,9 +76,9 @@ namespace zadanie_1.Networks
                 epoch++;
             } while ((train.Error > Error) && (epoch <= maxEpochCount));
 
-            result = new double[trainingSet.Count];
+            result = new double[testSet.Count];
             int index = 0;
-            foreach (IMLDataPair pair in trainingSet)
+            foreach (IMLDataPair pair in testSet)
             {
                 result[index++] = network.Compute(pair.Input)[0];
                 //IMLData output = network.Compute(pair.Input);
@@ -91,8 +93,8 @@ namespace zadanie_1.Networks
         {
             double[] res = new double[result.Length];
             double a = 1.0d, b = 1.0d;
-            double min = function.GetFIdeal().Min();
-            double max = function.GetFIdeal().Max();
+            double min = function.GetTestIdeal().Min();
+            double max = function.GetTestIdeal().Max();
 
             a = max - min;
             b = min;
