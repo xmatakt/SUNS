@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="encog-core-cs">
+      <HintPath>..\packages\encog-dotnet-core.3.3.0\lib\net35\encog-core-cs.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,18 +47,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Enums\ActivationFunctionEnum.cs" />
+    <Compile Include="Enums\ActivationFunctionStrings.cs" />
+    <Compile Include="Forms\ErrorGraphForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
+    <Compile Include="Forms\ErrorGraphForm.Designer.cs">
+      <DependentUpon>ErrorGraphForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="functions\Function1D.cs" />
-    <Compile Include="interfaces\IFunctionInterface.cs" />
+    <Compile Include="Forms\FunctionPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FunctionPropertiesForm.Designer.cs">
+      <DependentUpon>FunctionPropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MLPNetworkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MLPNetworkForm.Designer.cs">
+      <DependentUpon>MLPNetworkForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RBFNetworkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RBFNetworkForm.Designer.cs">
+      <DependentUpon>RBFNetworkForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Functions\Function1D.cs" />
+    <Compile Include="Interfaces\IFunctionInterface.cs" />
+    <Compile Include="Networks\DataManipulation.cs" />
+    <Compile Include="Networks\MLPNetwork.cs" />
+    <Compile Include="Networks\RbfNetwork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
+    <EmbeddedResource Include="Forms\ErrorGraphForm.resx">
+      <DependentUpon>ErrorGraphForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FunctionPropertiesForm.resx">
+      <DependentUpon>FunctionPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MLPNetworkForm.resx">
+      <DependentUpon>MLPNetworkForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RBFNetworkForm.resx">
+      <DependentUpon>RBFNetworkForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -66,6 +110,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Networks\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -77,7 +122,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Forms\App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
