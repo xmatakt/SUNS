@@ -41,7 +41,7 @@ namespace zadanie_1.Forms
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
-        #region Draving
+        #region Drawing
         private void DrawAxes()
         {
             g.Clear(Color.White);
@@ -74,7 +74,6 @@ namespace zadanie_1.Forms
             }
 
             DrawAxesDivision(delX, epochCount, min, max);
-
 
             pictureBox.Refresh();
         }
