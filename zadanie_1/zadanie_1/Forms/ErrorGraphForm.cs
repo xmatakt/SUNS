@@ -46,13 +46,12 @@ namespace zadanie_1.Forms
         {
             g.Clear(Color.White);
             Pen pen = new Pen(Brushes.Black);
-            //double min = Error.Min();
-            //double max = Error.Max();
-            //int epochCount = Error.Length;
-            //double delX = pictureBox.Width / (double)epochCount;
-
             g.DrawLine(pen, offset, pictureBox.Height - offset, pictureBox.Width - offset, pictureBox.Height - offset);
             g.DrawLine(pen, offset, pictureBox.Height - offset, offset, offset);
+
+            //x label
+            g.DrawString("epoch", new Font(FontFamily.GenericSansSerif, 11.0f, FontStyle.Bold), Brushes.Black, pictureBox.Width / 2 - 20, pictureBox.Height - 20);
+
             pictureBox.Refresh();
         }
 
@@ -72,6 +71,8 @@ namespace zadanie_1.Forms
                 g.DrawLine(pen, (i - 1) * (float)delX + offset, (float)(a * trainError[i - 1] + b),
                     i * (float)delX + offset, (float)(a * trainError[i] + b));
             }
+            //g.DrawLine(pen, (trainError.Length - 1) * (float)delX + offset, (float)(a * trainError[trainError.Length - 1] + b),
+            //        (trainError.Length + 1) * (float)delX + offset, (float)(a * trainError[trainError.Length - 1] + b));
 
             DrawAxesDivision(delX, epochCount, min, max);
 
@@ -82,13 +83,31 @@ namespace zadanie_1.Forms
         {
             //x axis
             //int tmp = epochCount / 10;
-            int tmp = (pictureBox.Width - 2 * offset)/10;
-            for (int i = 0; i <= 10; i++)
+            //epochCount
+            //int tmp = (pictureBox.Width - 2 * offset)/10;
+            //for (int i = 0; i <= 10; i++)
+            //{
+            //    g.DrawLine(new Pen(Brushes.Black),
+            //        (float)(i * tmp + offset), pictureBox.Height - offset, (float)(i * tmp + offset), pictureBox.Height - offset - 5);
+            //    g.DrawString((i * epochCount/10).ToString(), new Font(FontFamily.GenericSansSerif, 10),
+            //        Brushes.Black, (float)(i * tmp + offset) - (i * epochCount / 10).ToString().Length * 4, pictureBox.Height - offset + 10);
+            //}
+
+            for (int i = 0; i < epochCount; i++)
             {
-                g.DrawLine(new Pen(Brushes.Black),
-                    (float)(i * tmp + offset), pictureBox.Height - offset, (float)(i * tmp + offset), pictureBox.Height - offset - 5);
-                g.DrawString((i * epochCount/10).ToString(), new Font(FontFamily.GenericSansSerif, 10),
-                    Brushes.Black, (float)(i * tmp + offset) - (i * epochCount / 10).ToString().Length * 4, pictureBox.Height - offset + 10);
+                if (i % 5 == 0)
+                {
+                    g.DrawLine(new Pen(Brushes.Black),
+                    (float)(i * delX + offset), pictureBox.Height - offset, (float)(i * delX + offset), pictureBox.Height - offset - 5);
+
+                    g.DrawString((i).ToString(), new Font(FontFamily.GenericSansSerif, 8),
+                    Brushes.Black, (float)(i * delX + offset) - (i).ToString().Length * 4, pictureBox.Height - offset + 10);
+                }
+                else
+                {
+                    g.DrawLine(new Pen(Brushes.Black),
+                    (float)(i * delX + offset), pictureBox.Height - offset, (float)(i * delX + offset), pictureBox.Height - offset - 2);
+                }
             }
             //last point
             //g.DrawLine(new Pen(Brushes.Black),
