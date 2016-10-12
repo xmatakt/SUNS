@@ -25,6 +25,7 @@ namespace zadanie_1
         //private RbfNetwork rbfNetwork;
         private MLPNetworkForm mlpForm;
         private RBFNetworkForm rbfForm;
+        private PictureCompressionForm compressionForm;
         private FunctionPropertiesForm functionPropertiesForm;
         private int nodesCount = 100;
 
@@ -46,6 +47,7 @@ namespace zadanie_1
             //f.DrawResultAsCurve(pictureBox1, g, mlpNetwork.ReturnResult());
             mlpForm = new MLPNetworkForm(pictureBox1, g, f);
             rbfForm = new RBFNetworkForm(pictureBox1, g, f);
+            compressionForm = new PictureCompressionForm();
             functionPropertiesForm = new FunctionPropertiesForm();
             //rbfNetwork = new RbfNetwork(f);
             //rbfNetwork.TrainNetwork();
@@ -55,26 +57,6 @@ namespace zadanie_1
         private void Form1_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void mLPNetworkToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (mlpForm.IsDisposed)
-                mlpForm = new MLPNetworkForm(pictureBox1, g, f);
-
-            mlpForm.StartPosition = FormStartPosition.Manual;
-            mlpForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
-            mlpForm.Show();
-        }
-
-        private void rBFNetworkToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (rbfForm.IsDisposed)
-                rbfForm = new RBFNetworkForm(pictureBox1, g, f);
-
-            rbfForm.StartPosition = FormStartPosition.Manual;
-            rbfForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
-            rbfForm.Show();
         }
 
         private void functionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,6 +81,36 @@ namespace zadanie_1
             {
                 MessageBox.Show("You have to close MLPNetworkForm \n or RBFNetworkForm first!","Vnimanie!",MessageBoxButtons.OK,MessageBoxIcon.Hand);
             }
+        }
+
+        private void mLPNetworkToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (mlpForm.IsDisposed)
+                mlpForm = new MLPNetworkForm(pictureBox1, g, f);
+
+            mlpForm.StartPosition = FormStartPosition.Manual;
+            mlpForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
+            mlpForm.Show();
+        }
+
+        private void sToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (rbfForm.IsDisposed)
+                rbfForm = new RBFNetworkForm(pictureBox1, g, f);
+
+            rbfForm.StartPosition = FormStartPosition.Manual;
+            rbfForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
+            rbfForm.Show();
+        }
+
+        private void pictureCompressionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (compressionForm.IsDisposed)
+                compressionForm = new PictureCompressionForm();
+
+            compressionForm.StartPosition = FormStartPosition.Manual;
+            compressionForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
+            compressionForm.Show();
         }
     }
 }

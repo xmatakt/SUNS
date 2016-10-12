@@ -73,6 +73,12 @@
     <Compile Include="Forms\MLPNetworkForm.Designer.cs">
       <DependentUpon>MLPNetworkForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PictureCompressionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PictureCompressionForm.Designer.cs">
+      <DependentUpon>PictureCompressionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RBFNetworkForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MLPNetworkForm.resx">
       <DependentUpon>MLPNetworkForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PictureCompressionForm.resx">
+      <DependentUpon>PictureCompressionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RBFNetworkForm.resx">
       <DependentUpon>RBFNetworkForm.cs</DependentUpon>
