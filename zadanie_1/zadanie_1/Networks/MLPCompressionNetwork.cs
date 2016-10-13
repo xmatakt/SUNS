@@ -71,10 +71,19 @@ namespace zadanie_1.Networks
                     epoch++;
                 } while ((epoch <= 1000) && (train.Error > 0.01));
                 train.FinishTraining();
+                System.Diagnostics.Debug.WriteLine("{0}",i);
             }
-            
-           
+            System.Windows.Forms.MessageBox.Show("Network succesfuly trained!");
         }
 
+        public void CompressPicture()
+        {
+            // test the neural network
+            int tmp = testPicture.Length;
+            //trainingResult = new double[testSet.Count];
+            //int index = 0;
+            //foreach (IMLDataPair pair in testSet)
+                //trainingResult[index++] = network.Compute(pair.Input)[0];
+        }
     }
 }

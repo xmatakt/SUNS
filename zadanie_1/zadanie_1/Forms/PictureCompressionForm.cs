@@ -55,28 +55,28 @@ namespace zadanie_1.Forms
                 Bitmap bitmap = new Bitmap(trainFile);
                 byte[] arr = new byte[bitmap.Width * bitmap.Height];
 
-                StreamWriter sw = new StreamWriter("output.pgm");
-
-                sw.WriteLine("P2");
-                sw.WriteLine(bitmap.Width + " " + bitmap.Height);
-                sw.WriteLine("255");
                 int index = 0;
 
                 for (int i = 0; i < bitmap.Height; i++)
                     for (int j = 0; j < bitmap.Width; j++)
                         arr[index++] = (byte)((bitmap.GetPixel(j, i).R + bitmap.GetPixel(j, i).G + bitmap.GetPixel(j, i).B) / 3);
 
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    sw.Write("{0} ", arr[i]);
-                    if (i != 0 && i % bitmap.Width == 0)
-                        sw.WriteLine("");
-                }
+                dividedTrainPicture = DataManipulation.DividePicture(arr, bitmap.Width, bitmap.Height);
+                //StreamWriter sw = new StreamWriter("output.pgm");
 
-                sw.Flush();
-                sw.Close();
+                //sw.WriteLine("P2");
+                //sw.WriteLine(bitmap.Width + " " + bitmap.Height);
+                //sw.WriteLine("255");
 
-                //DividePicture(arr, bitmap.Width, bitmap.Height);
+                //for (int i = 0; i < arr.Length; i++)
+                //{
+                //    sw.Write("{0} ", arr[i]);
+                //    if (i != 0 && i % bitmap.Width == 0)
+                //        sw.WriteLine("");
+                //}
+
+                //sw.Flush();
+                //sw.Close();
             }
         }
 
@@ -126,6 +126,7 @@ namespace zadanie_1.Forms
                 GenerateNetwork();
                 //mlpNetwork.Train();
                 train_button.BackColor = Color.Lime;
+                mlpNetwork.Train();
             }
             else
                 MessageBox.Show("You have to load training data first!");
@@ -137,11 +138,12 @@ namespace zadanie_1.Forms
             BasicNetwork network = new BasicNetwork();
 
             //input layer
-            network.AddLayer(new BasicLayer(null, true, 64));
+            network.AddLayer(new BasicLayer(null, true, 1));
             //hidden layers
             AddLayer(network,second_neuronsCont,second_activationFunctionButton,second_biasCheckBox);
             //output layer
-            AddLayer(network, third_neuronsCount, third_activationFunctionButton, third_biasCheckBox);
+            //AddLayer(network, third_neuronsCount, third_activationFunctionButton, third_biasCheckBox);
+            network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
 
             network.Structure.FinalizeStructure();
             network.Reset();
@@ -176,11 +178,29 @@ namespace zadanie_1.Forms
         {
             if (dividedTestPicture != null)
             {
-                mlpNetwork = new MLPCompressionNetwork(dividedTrainPicture);
-                GenerateNetwork();
+                mlpNetwork.SetTestPicture(dividedTestPicture);
+                mlpNetwork.CompressPicture();
             }
             else
                 MessageBox.Show("You have to load test data first!");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                testFile = openFileDialog.FileName;
+                Bitmap bitmap = new Bitmap(testFile);
+                byte[] arr = new byte[bitmap.Width * bitmap.Height];
+
+                int index = 0;
+
+                for (int i = 0; i < bitmap.Height; i++)
+                    for (int j = 0; j < bitmap.Width; j++)
+                        arr[index++] = (byte)((bitmap.GetPixel(j, i).R + bitmap.GetPixel(j, i).G + bitmap.GetPixel(j, i).B) / 3);
+
+                dividedTestPicture = DataManipulation.DividePicture(arr, bitmap.Width, bitmap.Height);
+            }
         }
     }
 }
