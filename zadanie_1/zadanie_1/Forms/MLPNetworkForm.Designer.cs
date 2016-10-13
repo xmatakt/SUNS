@@ -53,9 +53,10 @@
             // addLayerButton
             // 
             this.addLayerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.addLayerButton.Location = new System.Drawing.Point(16, 80);
+            this.addLayerButton.Location = new System.Drawing.Point(18, 100);
+            this.addLayerButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.addLayerButton.Name = "addLayerButton";
-            this.addLayerButton.Size = new System.Drawing.Size(88, 28);
+            this.addLayerButton.Size = new System.Drawing.Size(99, 35);
             this.addLayerButton.TabIndex = 0;
             this.addLayerButton.Text = "+";
             this.addLayerButton.UseVisualStyleBackColor = true;
@@ -64,25 +65,26 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 124);
+            this.label1.Location = new System.Drawing.Point(27, 155);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 17);
+            this.label1.Size = new System.Drawing.Size(145, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "Number of neurons";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(201, 124);
+            this.label2.Location = new System.Drawing.Point(226, 155);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 17);
+            this.label2.Size = new System.Drawing.Size(139, 20);
             this.label2.TabIndex = 2;
             this.label2.Text = "Activation function";
             // 
             // neuronsCount_1
             // 
             this.neuronsCount_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.neuronsCount_1.Location = new System.Drawing.Point(63, 150);
+            this.neuronsCount_1.Location = new System.Drawing.Point(71, 188);
+            this.neuronsCount_1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.neuronsCount_1.Maximum = new decimal(new int[] {
             55,
             0,
@@ -94,7 +96,7 @@
             0,
             0});
             this.neuronsCount_1.Name = "neuronsCount_1";
-            this.neuronsCount_1.Size = new System.Drawing.Size(91, 24);
+            this.neuronsCount_1.Size = new System.Drawing.Size(102, 28);
             this.neuronsCount_1.TabIndex = 3;
             this.neuronsCount_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.neuronsCount_1.Value = new decimal(new int[] {
@@ -107,14 +109,15 @@
             // 
             this.activationFunctionMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.activationFunctionMenuStrip.Name = "contextMenuStrip1";
-            this.activationFunctionMenuStrip.Size = new System.Drawing.Size(67, 4);
+            this.activationFunctionMenuStrip.Size = new System.Drawing.Size(199, 37);
             this.activationFunctionMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // activationFunctionButton_1
             // 
-            this.activationFunctionButton_1.Location = new System.Drawing.Point(174, 149);
+            this.activationFunctionButton_1.Location = new System.Drawing.Point(196, 186);
+            this.activationFunctionButton_1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.activationFunctionButton_1.Name = "activationFunctionButton_1";
-            this.activationFunctionButton_1.Size = new System.Drawing.Size(150, 25);
+            this.activationFunctionButton_1.Size = new System.Drawing.Size(169, 31);
             this.activationFunctionButton_1.TabIndex = 4;
             this.activationFunctionButton_1.Text = "ActivationSigmoid";
             this.activationFunctionButton_1.UseVisualStyleBackColor = true;
@@ -123,27 +126,29 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(347, 124);
+            this.label3.Location = new System.Drawing.Point(390, 155);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 17);
+            this.label3.Size = new System.Drawing.Size(40, 20);
             this.label3.TabIndex = 5;
             this.label3.Text = "Bias";
             // 
             // biasCheckBox_1
             // 
             this.biasCheckBox_1.AutoSize = true;
-            this.biasCheckBox_1.Location = new System.Drawing.Point(356, 152);
+            this.biasCheckBox_1.Location = new System.Drawing.Point(400, 190);
+            this.biasCheckBox_1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.biasCheckBox_1.Name = "biasCheckBox_1";
-            this.biasCheckBox_1.Size = new System.Drawing.Size(18, 17);
+            this.biasCheckBox_1.Size = new System.Drawing.Size(22, 21);
             this.biasCheckBox_1.TabIndex = 6;
             this.biasCheckBox_1.UseVisualStyleBackColor = true;
             // 
             // removeLayerButton
             // 
             this.removeLayerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.removeLayerButton.Location = new System.Drawing.Point(120, 80);
+            this.removeLayerButton.Location = new System.Drawing.Point(135, 100);
+            this.removeLayerButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.removeLayerButton.Name = "removeLayerButton";
-            this.removeLayerButton.Size = new System.Drawing.Size(92, 28);
+            this.removeLayerButton.Size = new System.Drawing.Size(104, 35);
             this.removeLayerButton.TabIndex = 7;
             this.removeLayerButton.Text = "-";
             this.removeLayerButton.UseVisualStyleBackColor = true;
@@ -151,9 +156,10 @@
             // 
             // generateNetworkButton
             // 
-            this.generateNetworkButton.Location = new System.Drawing.Point(242, 13);
+            this.generateNetworkButton.Location = new System.Drawing.Point(272, 16);
+            this.generateNetworkButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.generateNetworkButton.Name = "generateNetworkButton";
-            this.generateNetworkButton.Size = new System.Drawing.Size(156, 28);
+            this.generateNetworkButton.Size = new System.Drawing.Size(176, 35);
             this.generateNetworkButton.TabIndex = 8;
             this.generateNetworkButton.Text = "Generate network";
             this.generateNetworkButton.UseVisualStyleBackColor = true;
@@ -162,9 +168,10 @@
             // showLogButton
             // 
             this.showLogButton.Enabled = false;
-            this.showLogButton.Location = new System.Drawing.Point(242, 48);
+            this.showLogButton.Location = new System.Drawing.Point(272, 60);
+            this.showLogButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.showLogButton.Name = "showLogButton";
-            this.showLogButton.Size = new System.Drawing.Size(156, 26);
+            this.showLogButton.Size = new System.Drawing.Size(176, 32);
             this.showLogButton.TabIndex = 10;
             this.showLogButton.Text = "Show log";
             this.showLogButton.UseVisualStyleBackColor = true;
@@ -172,9 +179,10 @@
             // errorGraphButton
             // 
             this.errorGraphButton.Enabled = false;
-            this.errorGraphButton.Location = new System.Drawing.Point(242, 80);
+            this.errorGraphButton.Location = new System.Drawing.Point(272, 100);
+            this.errorGraphButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.errorGraphButton.Name = "errorGraphButton";
-            this.errorGraphButton.Size = new System.Drawing.Size(156, 28);
+            this.errorGraphButton.Size = new System.Drawing.Size(176, 35);
             this.errorGraphButton.TabIndex = 11;
             this.errorGraphButton.Text = "Show error graph";
             this.errorGraphButton.UseVisualStyleBackColor = true;
@@ -189,7 +197,8 @@
             0,
             0,
             262144});
-            this.requiredErrorUpDown.Location = new System.Drawing.Point(137, 48);
+            this.requiredErrorUpDown.Location = new System.Drawing.Point(154, 60);
+            this.requiredErrorUpDown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.requiredErrorUpDown.Maximum = new decimal(new int[] {
             1,
             0,
@@ -201,7 +210,7 @@
             0,
             262144});
             this.requiredErrorUpDown.Name = "requiredErrorUpDown";
-            this.requiredErrorUpDown.Size = new System.Drawing.Size(75, 22);
+            this.requiredErrorUpDown.Size = new System.Drawing.Size(84, 26);
             this.requiredErrorUpDown.TabIndex = 15;
             this.requiredErrorUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.requiredErrorUpDown.Value = new decimal(new int[] {
@@ -214,15 +223,16 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label4.Location = new System.Drawing.Point(12, 50);
+            this.label4.Location = new System.Drawing.Point(14, 62);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(105, 17);
+            this.label4.Size = new System.Drawing.Size(115, 20);
             this.label4.TabIndex = 14;
             this.label4.Text = "Required error:";
             // 
             // maxCountNumericUpDown
             // 
-            this.maxCountNumericUpDown.Location = new System.Drawing.Point(137, 17);
+            this.maxCountNumericUpDown.Location = new System.Drawing.Point(154, 21);
+            this.maxCountNumericUpDown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.maxCountNumericUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -234,7 +244,7 @@
             0,
             0});
             this.maxCountNumericUpDown.Name = "maxCountNumericUpDown";
-            this.maxCountNumericUpDown.Size = new System.Drawing.Size(75, 22);
+            this.maxCountNumericUpDown.Size = new System.Drawing.Size(84, 26);
             this.maxCountNumericUpDown.TabIndex = 13;
             this.maxCountNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.maxCountNumericUpDown.Value = new decimal(new int[] {
@@ -246,17 +256,17 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 19);
+            this.label5.Location = new System.Drawing.Point(14, 24);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(119, 17);
+            this.label5.Size = new System.Drawing.Size(134, 20);
             this.label5.TabIndex = 12;
             this.label5.Text = "Max epoch count:";
             // 
             // MLPNetworkForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 191);
+            this.ClientSize = new System.Drawing.Size(461, 239);
             this.Controls.Add(this.requiredErrorUpDown);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.maxCountNumericUpDown);
@@ -273,6 +283,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.addLayerButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MLPNetworkForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "MLPNetworkForm";

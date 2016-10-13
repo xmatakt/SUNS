@@ -146,7 +146,7 @@ namespace zadanie_1.Forms
             CheckBox checkBox = (CheckBox)this.Controls.Find("biasCheckBox_" + i, false).First();
             bool hasBias = checkBox.Checked;
 
-            switch (AddLayer(button))
+            switch (DataManipulation.GetActivationFunctionEnum(button.Text.Trim()))
             {
                 case ActivationFunctionEnum.ActivationSigmoid:
                     network.AddLayer(new BasicLayer(new ActivationSigmoid(), hasBias, (int)numUpDown.Value));
@@ -165,9 +165,9 @@ namespace zadanie_1.Forms
             }
         }
 
-        private ActivationFunctionEnum AddLayer(Button button)
+        private ActivationFunctionEnum AddLayer(string functionName)
         {
-            switch (button.Text)
+            switch (functionName)
             {
                 case ActivationFunctionStrings.ActivationSigmoid:
                     return ActivationFunctionEnum.ActivationSigmoid;
