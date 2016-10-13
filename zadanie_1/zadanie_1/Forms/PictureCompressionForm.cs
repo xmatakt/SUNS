@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
-
+using System.Runtime.InteropServices;
 
 #region Encog
 using Encog.Neural.Networks;
@@ -36,16 +36,81 @@ namespace zadanie_1.Forms
         
         private string trainFile = "";
         private string testFile = "";
-        private byte[][][] dividedTrainPicture;
-        private byte[][][] dividedTestPicture; 
+        private double[][][] dividedTrainPicture;
+        private double[][][] dividedTestPicture; 
 
         public PictureCompressionForm()
         {
             InitializeComponent();
             dividedTrainPicture = null;
             dividedTestPicture = null;
-            //Tmp();
         }
+
+        private void train_button_Click(object sender, EventArgs e)
+        {
+            if (dividedTrainPicture != null)
+            {
+                mlpNetwork = new MLPCompressionNetwork(dividedTrainPicture);
+                GenerateNetwork();
+                train_button.BackColor = Color.Lime;
+                mlpNetwork.Train();
+            }
+            else
+                MessageBox.Show("You have to load training data first!");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dividedTestPicture != null)
+            {
+                mlpNetwork.SetTestPicture(dividedTestPicture);
+                mlpNetwork.CompressPicture();
+            }
+            else
+                MessageBox.Show("You have to load test data first!");
+        }
+
+        #region Network manipulation
+        private void GenerateNetwork()
+        {
+            BasicNetwork network = new BasicNetwork();
+            //input layer
+            network.AddLayer(new BasicLayer(null, true, 64));
+            //hidden layers
+            AddLayer(network, second_neuronsCont, second_activationFunctionButton, second_biasCheckBox);
+            //output layer
+            AddLayer(network, third_neuronsCount, third_activationFunctionButton, third_biasCheckBox);
+
+            network.Structure.FinalizeStructure();
+            network.Reset();
+            mlpNetwork.SetNetwork(network);
+        }
+
+        private void AddLayer(BasicNetwork network, NumericUpDown upDown, Button button, CheckBox box)
+        {
+            bool hasBias = box.Checked;
+            int neuronsCount = (int)upDown.Value;
+            switch (DataManipulation.GetActivationFunctionEnum(button.Text.Trim()))
+            {
+                case ActivationFunctionEnum.ActivationSigmoid:
+                    network.AddLayer(new BasicLayer(new ActivationSigmoid(), hasBias, neuronsCount));
+                    break;
+                case ActivationFunctionEnum.ActivationTanh:
+                    network.AddLayer(new BasicLayer(new ActivationTANH(), hasBias, neuronsCount));
+                    break;
+                case ActivationFunctionEnum.ActivationSin:
+                    network.AddLayer(new BasicLayer(new ActivationSIN(), hasBias, neuronsCount));
+                    break;
+                case ActivationFunctionEnum.ActivationRamp:
+                    network.AddLayer(new BasicLayer(new ActivationRamp(), hasBias, neuronsCount));
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
+
+        #region Data loading
 
         private void loadTrainData_button_Click(object sender, EventArgs e)
         {
@@ -80,13 +145,28 @@ namespace zadanie_1.Forms
             }
         }
 
-        public static byte[] ImageToByteArray(Image img)
+        private void button1_Click(object sender, EventArgs e)
         {
-            ImageConverter converter = new ImageConverter();
-            //return (byte[])converter.ConvertTo(bmp, typeof(byte[]));
-            return (byte[])converter.ConvertTo(img, typeof(byte[]));
-        }
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                testFile = openFileDialog.FileName;
+                Bitmap bitmap = new Bitmap(testFile);
+                byte[] arr = new byte[bitmap.Width * bitmap.Height];
 
+                int index = 0;
+
+                for (int i = 0; i < bitmap.Height; i++)
+                    for (int j = 0; j < bitmap.Width; j++)
+                        arr[index++] = (byte)((bitmap.GetPixel(j, i).R + bitmap.GetPixel(j, i).G + bitmap.GetPixel(j, i).B) / 3);
+
+                dividedTestPicture = DataManipulation.DividePicture(arr, bitmap.Width, bitmap.Height);
+                mlpNetwork.Width = bitmap.Width;
+                mlpNetwork.Height = bitmap.Height;
+            }
+        }
+        #endregion
+
+        #region Bordel
         private void PictureCompressionForm_Load(object sender, EventArgs e)
         {
             activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.ActivationSigmoid.ToString());
@@ -117,90 +197,6 @@ namespace zadanie_1.Forms
         {
             actualButton.Text = e.ClickedItem.Text;
         }
-
-        private void train_button_Click(object sender, EventArgs e)
-        {
-            if (dividedTrainPicture != null)
-            {
-                mlpNetwork = new MLPCompressionNetwork(dividedTrainPicture);
-                GenerateNetwork();
-                //mlpNetwork.Train();
-                train_button.BackColor = Color.Lime;
-                mlpNetwork.Train();
-            }
-            else
-                MessageBox.Show("You have to load training data first!");
-        }
-
-        #region Network manipulation
-        private void GenerateNetwork()
-        {
-            BasicNetwork network = new BasicNetwork();
-
-            //input layer
-            network.AddLayer(new BasicLayer(null, true, 1));
-            //hidden layers
-            AddLayer(network,second_neuronsCont,second_activationFunctionButton,second_biasCheckBox);
-            //output layer
-            //AddLayer(network, third_neuronsCount, third_activationFunctionButton, third_biasCheckBox);
-            network.AddLayer(new BasicLayer(new ActivationSigmoid(), false, 1));
-
-            network.Structure.FinalizeStructure();
-            network.Reset();
-            mlpNetwork.SetNetwork(network);
-        }
-
-        private void AddLayer(BasicNetwork network, NumericUpDown upDown, Button button, CheckBox box)
-        {
-            bool hasBias = box.Checked;
-            int neuronsCount = (int)upDown.Value;
-            switch (DataManipulation.GetActivationFunctionEnum(button.Text.Trim()))
-            {
-                case ActivationFunctionEnum.ActivationSigmoid:
-                    network.AddLayer(new BasicLayer(new ActivationSigmoid(), hasBias, neuronsCount));
-                    break;
-                case ActivationFunctionEnum.ActivationTanh:
-                    network.AddLayer(new BasicLayer(new ActivationTANH(), hasBias, neuronsCount));
-                    break;
-                case ActivationFunctionEnum.ActivationSin:
-                    network.AddLayer(new BasicLayer(new ActivationSIN(), hasBias, neuronsCount));
-                    break;
-                case ActivationFunctionEnum.ActivationRamp:
-                    network.AddLayer(new BasicLayer(new ActivationRamp(), hasBias, neuronsCount));
-                    break;
-                default:
-                    break;
-            }
-        }
         #endregion
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (dividedTestPicture != null)
-            {
-                mlpNetwork.SetTestPicture(dividedTestPicture);
-                mlpNetwork.CompressPicture();
-            }
-            else
-                MessageBox.Show("You have to load test data first!");
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                testFile = openFileDialog.FileName;
-                Bitmap bitmap = new Bitmap(testFile);
-                byte[] arr = new byte[bitmap.Width * bitmap.Height];
-
-                int index = 0;
-
-                for (int i = 0; i < bitmap.Height; i++)
-                    for (int j = 0; j < bitmap.Width; j++)
-                        arr[index++] = (byte)((bitmap.GetPixel(j, i).R + bitmap.GetPixel(j, i).G + bitmap.GetPixel(j, i).B) / 3);
-
-                dividedTestPicture = DataManipulation.DividePicture(arr, bitmap.Width, bitmap.Height);
-            }
-        }
     }
 }

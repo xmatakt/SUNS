@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 
 using Encog.Neural.Networks;
 using Encog.Neural.Networks.Layers;
@@ -37,6 +38,7 @@ namespace encog_1stApp
 
         private static void Main(string[] args)
         {
+            System.Diagnostics.Debug.WriteLine(XORInput.Length.ToString());
             // create a neural network, without using a factory
             var network = new BasicNetwork();
             network.AddLayer(new BasicLayer(null, true, 2));
