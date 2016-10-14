@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+
 #region Encog
 using Encog.Neural.Networks;
 using Encog.Neural.Networks.Layers;
@@ -22,22 +26,26 @@ namespace zadanie_1.Networks
     class MLPCompressionNetwork
     {
         private BasicNetwork network;
-        private byte[][][] trainPicture;
-        private byte[][][] testPicture;
+        private double[][][] trainPicture;
+        private double[][][] testPicture;
+        private double[][] trainingResult;
+
+        public int Width { get; set; }
+        public int Height { get; set; }
 
         #region constructors
-        public MLPCompressionNetwork(byte[][][] trainPicture)
+        public MLPCompressionNetwork(double[][][] trainPicture)
         {
             this.trainPicture = trainPicture;
         }
 
-        public MLPCompressionNetwork(byte[][][] trainPicture, byte[][][] testPicture)
+        public MLPCompressionNetwork(double[][][] trainPicture, double[][][] testPicture)
         {
             this.trainPicture = trainPicture;
             this.testPicture = testPicture;
         }
 
-        public void SetTestPicture(byte[][][] testPicture)
+        public void SetTestPicture(double[][][] testPicture)
         {
             this.testPicture = testPicture;
         }
@@ -53,14 +61,13 @@ namespace zadanie_1.Networks
         {
             for (int i = 0; i < trainPicture.Length; i++)
             {
-                // MOZNO BUDE TREBA NORMALIZOVAT VSTUP (RESP. URCITE BUDE TREBA)
-                byte[] data = DataManipulation.Get1DArrayFrom2DArray(trainPicture[i], 8, 8);
-                IMLDataSet trainingSet = DataManipulation.GetBasicDataSetFromOneDimensionalArrays(
-                    data, data, false);
+                double[][] data = new double[1][];
+                data[0] = DataManipulation.Get1DArrayFrom2DArray(trainPicture[i], 8, 8);
+                IMLDataSet trainingSet = new BasicMLDataSet(data, data);
                 //IMLDataSet testSet = DataManipulation.GetBasicDataSetFromOneDimensionalArrays(function.GetTestInput(), function.GetTestIdeal());
 
                 // train the neural network
-                IMLTrain train = new ResilientPropagation(network, trainingSet);
+                ResilientPropagation train = new ResilientPropagation(network, trainingSet);
 
                 int epoch = 1;
                 do
@@ -69,7 +76,7 @@ namespace zadanie_1.Networks
                     //System.Diagnostics.Debug.WriteLine(@"Epoch #" + epoch + @" Error:" + train.Error);
                     //error.Add(train.Error);
                     epoch++;
-                } while ((epoch <= 1000) && (train.Error > 0.01));
+                } while ((epoch <= 1000) && (train.Error > 0.0016));
                 train.FinishTraining();
                 System.Diagnostics.Debug.WriteLine("{0}", i);
             }
@@ -78,12 +85,33 @@ namespace zadanie_1.Networks
 
         public void CompressPicture()
         {
-            // test the neural network
-            int tmp = testPicture.Length;
-            //trainingResult = new double[testSet.Count];
-            //int index = 0;
-            //foreach (IMLDataPair pair in testSet)
-                //trainingResult[index++] = network.Compute(pair.Input)[0];
+            trainingResult = new double[testPicture.Length][];
+            for (int i = 0; i < trainingResult.Length; i++)
+                trainingResult[i] = new double[64];
+
+            // test the neural networktrainingResult.Length
+            for (int i = 0; i < trainingResult.Length; i++)
+            {
+                double[][] data = new double[1][];
+                data[0] = DataManipulation.Get1DArrayFrom2DArray(testPicture[i], 8, 8);
+                IMLDataSet testSet = new BasicMLDataSet(data, data);
+                //int index = 0;
+                foreach (IMLDataPair pair in testSet)
+                    //trainingResult[i] = 
+                        network.Compute(pair.Input).CopyTo(trainingResult[i], 0, 64);
+                //System.Diagnostics.Debug.WriteLine(index.ToString());
+            }
+            System.Windows.Forms.MessageBox.Show("Picture was succesfuly compressed!");
+
+            byte[] compressedPicture = DataManipulation.GetPictureArrayFrom2D(trainingResult, Width, Height);
+
+            var bitmap2 = new Bitmap(Width, Height);
+            for (int y = 0; y < bitmap2.Height; y++)
+                for (int x = 0; x < bitmap2.Width; x++)
+                    bitmap2.SetPixel(x, y, Color.FromArgb(compressedPicture[x + y * bitmap2.Width], compressedPicture[x + y * bitmap2.Width],
+                        compressedPicture[x + y * bitmap2.Width]));
+            var result = bitmap2 as Image;
+            result.Save("kokotina.png", ImageFormat.Png);
         }
     }
 }

@@ -71,27 +71,28 @@ namespace zadanie_1.Networks
 
         /// <summary>
         /// Metoda prebere sirku a vysku vstupneho obrazku a 1D pole bajtov reprezentujuce obrazok 
-        /// a vrati i 2D poli (3D pole) reprezentujuce obrazok rozdeleny na 8x8 polia
+        /// a vrati i 2D poli (3D pole) reprezentujuce obrazok rozdeleny na 8x8 polia.
+        /// Vysledok je NORMALIZOVANY, teda hodnoty z intervalu [0,1]
         /// </summary>
         /// <param name="arr"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        public static byte[][][] DividePicture(byte[] arr, int width, int height)
+        public static double[][][] DividePicture(byte[] arr, int width, int height)
         {
-            byte[][][] dividedPicture;
+            double[][][] dividedPicture;
             int cx = width / 8;
             int cy = height / 8;
             int countInSquare = 64;
             int countInRow = 8;
 
             //alokacia potrebnej pamate
-            dividedPicture = new byte[cx * cy][][];
+            dividedPicture = new double[cx * cy][][];
             for (int i = 0; i < dividedPicture.Length; i++)
             {
-                dividedPicture[i] = new byte[countInRow][];
+                dividedPicture[i] = new double[countInRow][];
                 for (int j = 0; j < countInRow; j++)
-                    dividedPicture[i][j] = new byte[countInRow];
+                    dividedPicture[i][j] = new double[countInRow];
             }
 
             // rozdelenie 1D pola na 2D pole s 8x8 polickami
@@ -100,7 +101,7 @@ namespace zadanie_1.Networks
                 int start = (i - (i % cx)) * countInSquare + (i % cx) * countInRow;
                 for (int y = 0; y < countInRow; y++)
                     for (int x = 0; x < countInRow; x++)
-                        dividedPicture[i][x][y] = arr[start + x + y * width];
+                        dividedPicture[i][x][y] = arr[start + x + y * width] / (double)255;
             }
 
             return dividedPicture;
@@ -131,9 +132,53 @@ namespace zadanie_1.Networks
             return result;
         }
 
-        public static byte[] Get1DArrayFrom2DArray(byte[][] array2D, int width, int height)
+        /// <summary>
+        /// Metoda preberie obrazok rozdeleny na x-1D poli (2D pole) a vrati obrazok ulozeny vo forme 1D pola.
+        /// </summary>
+        /// <param name="dividedPicture"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static byte[] GetPictureArrayFrom2D(double[][] dividedPicture, int width, int height)
         {
+            int cx = width / 8;
+            int countInRow = 8;
             byte[] result = new byte[width * height];
+
+            int index = 0;
+
+            for (int i = 0; i < dividedPicture.Length; i += cx)
+            {
+                for (int j = 0; j < countInRow; j++)
+                {
+                    for (int k = 0; k < cx; k++)
+                    {
+                        for (int m = 0; m < countInRow; m++)
+                        {
+                            result[index++] = (byte)(dividedPicture[i + k][m + countInRow * j] * 255);
+                            //System.Diagnostics.Debug.WriteLine("result[{0}] = dp[{1}][{2}]", index - 1, i + k, m + countInRow * j);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        //public static byte[] Get1DArrayFrom2DArray(byte[][] array2D, int width, int height)
+        //{
+        //    byte[] result = new byte[width * height];
+
+        //    for (int y = 0; y < height; y++)
+        //        for (int x = 0; x < width; x++)
+        //            result[x + y * width] = array2D[x][y];
+
+        //    return result;
+        //}
+
+        public static double[] Get1DArrayFrom2DArray(double[][] array2D, int width, int height)
+        {
+            double[] result = new double[width * height];
 
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
