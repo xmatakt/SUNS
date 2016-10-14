@@ -71,7 +71,7 @@ namespace zadanie_1.Networks
                     epoch++;
                 } while ((epoch <= 1000) && (train.Error > 0.01));
                 train.FinishTraining();
-                System.Diagnostics.Debug.WriteLine("{0}",i);
+                System.Diagnostics.Debug.WriteLine("{0}", i);
             }
             System.Windows.Forms.MessageBox.Show("Network succesfuly trained!");
         }
