@@ -79,6 +79,7 @@ namespace zadanie_1.Forms
             //hidden layers
             AddLayer(network, second_neuronsCont, second_activationFunctionButton, second_biasCheckBox);
             //output layer
+            //network.AddLayer(new BasicLayer(new ActivationTANH(), false, 64));
             AddLayer(network, third_neuronsCount, third_activationFunctionButton, third_biasCheckBox);
 
             network.Structure.FinalizeStructure();

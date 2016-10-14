@@ -63,26 +63,28 @@
             this.first_biasCheckBox.Checked = true;
             this.first_biasCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.first_biasCheckBox.Enabled = false;
-            this.first_biasCheckBox.Location = new System.Drawing.Point(393, 46);
+            this.first_biasCheckBox.Location = new System.Drawing.Point(442, 58);
+            this.first_biasCheckBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.first_biasCheckBox.Name = "first_biasCheckBox";
-            this.first_biasCheckBox.Size = new System.Drawing.Size(18, 17);
+            this.first_biasCheckBox.Size = new System.Drawing.Size(22, 21);
             this.first_biasCheckBox.TabIndex = 12;
             this.first_biasCheckBox.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(383, 17);
+            this.label3.Location = new System.Drawing.Point(431, 21);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 17);
+            this.label3.Size = new System.Drawing.Size(40, 20);
             this.label3.TabIndex = 11;
             this.label3.Text = "Bias";
             // 
             // first_activationFunctionButton
             // 
-            this.first_activationFunctionButton.Location = new System.Drawing.Point(217, 39);
+            this.first_activationFunctionButton.Location = new System.Drawing.Point(244, 49);
+            this.first_activationFunctionButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.first_activationFunctionButton.Name = "first_activationFunctionButton";
-            this.first_activationFunctionButton.Size = new System.Drawing.Size(150, 30);
+            this.first_activationFunctionButton.Size = new System.Drawing.Size(169, 38);
             this.first_activationFunctionButton.TabIndex = 10;
             this.first_activationFunctionButton.Text = "ActivationSigmoid";
             this.first_activationFunctionButton.UseVisualStyleBackColor = true;
@@ -92,7 +94,8 @@
             // 
             this.first_neuronsCount.Enabled = false;
             this.first_neuronsCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.first_neuronsCount.Location = new System.Drawing.Point(106, 42);
+            this.first_neuronsCount.Location = new System.Drawing.Point(119, 52);
+            this.first_neuronsCount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.first_neuronsCount.Maximum = new decimal(new int[] {
             64,
             0,
@@ -104,7 +107,7 @@
             0,
             0});
             this.first_neuronsCount.Name = "first_neuronsCount";
-            this.first_neuronsCount.Size = new System.Drawing.Size(91, 24);
+            this.first_neuronsCount.Size = new System.Drawing.Size(102, 28);
             this.first_neuronsCount.TabIndex = 9;
             this.first_neuronsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.first_neuronsCount.Value = new decimal(new int[] {
@@ -116,27 +119,27 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(233, 17);
+            this.label2.Location = new System.Drawing.Point(262, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 17);
+            this.label2.Size = new System.Drawing.Size(139, 20);
             this.label2.TabIndex = 8;
             this.label2.Text = "Activation function";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(84, 17);
+            this.label1.Location = new System.Drawing.Point(94, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 17);
+            this.label1.Size = new System.Drawing.Size(145, 20);
             this.label1.TabIndex = 7;
             this.label1.Text = "Number of neurons";
             // 
             // loadTrainData_button
             // 
-            this.loadTrainData_button.Location = new System.Drawing.Point(292, 160);
+            this.loadTrainData_button.Location = new System.Drawing.Point(328, 200);
             this.loadTrainData_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.loadTrainData_button.Name = "loadTrainData_button";
-            this.loadTrainData_button.Size = new System.Drawing.Size(120, 25);
+            this.loadTrainData_button.Size = new System.Drawing.Size(135, 31);
             this.loadTrainData_button.TabIndex = 13;
             this.loadTrainData_button.Text = "Load train data";
             this.loadTrainData_button.UseVisualStyleBackColor = true;
@@ -145,27 +148,27 @@
             // trainDataLoaded_label
             // 
             this.trainDataLoaded_label.AutoSize = true;
-            this.trainDataLoaded_label.Location = new System.Drawing.Point(112, 164);
+            this.trainDataLoaded_label.Location = new System.Drawing.Point(126, 205);
             this.trainDataLoaded_label.Name = "trainDataLoaded_label";
-            this.trainDataLoaded_label.Size = new System.Drawing.Size(175, 17);
+            this.trainDataLoaded_label.Size = new System.Drawing.Size(195, 20);
             this.trainDataLoaded_label.TabIndex = 14;
             this.trainDataLoaded_label.Text = "Train data was not loaded!";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(112, 197);
+            this.label4.Location = new System.Drawing.Point(126, 246);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(170, 17);
+            this.label4.Size = new System.Drawing.Size(191, 20);
             this.label4.TabIndex = 16;
             this.label4.Text = "Test data was not loaded!";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(292, 193);
+            this.button1.Location = new System.Drawing.Point(328, 241);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 25);
+            this.button1.Size = new System.Drawing.Size(135, 31);
             this.button1.TabIndex = 15;
             this.button1.Text = "Load test data";
             this.button1.UseVisualStyleBackColor = true;
@@ -178,17 +181,19 @@
             // second_biasCheckBox
             // 
             this.second_biasCheckBox.AutoSize = true;
-            this.second_biasCheckBox.Location = new System.Drawing.Point(393, 82);
+            this.second_biasCheckBox.Location = new System.Drawing.Point(442, 102);
+            this.second_biasCheckBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.second_biasCheckBox.Name = "second_biasCheckBox";
-            this.second_biasCheckBox.Size = new System.Drawing.Size(18, 17);
+            this.second_biasCheckBox.Size = new System.Drawing.Size(22, 21);
             this.second_biasCheckBox.TabIndex = 19;
             this.second_biasCheckBox.UseVisualStyleBackColor = true;
             // 
             // second_activationFunctionButton
             // 
-            this.second_activationFunctionButton.Location = new System.Drawing.Point(217, 75);
+            this.second_activationFunctionButton.Location = new System.Drawing.Point(244, 94);
+            this.second_activationFunctionButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.second_activationFunctionButton.Name = "second_activationFunctionButton";
-            this.second_activationFunctionButton.Size = new System.Drawing.Size(150, 30);
+            this.second_activationFunctionButton.Size = new System.Drawing.Size(169, 38);
             this.second_activationFunctionButton.TabIndex = 18;
             this.second_activationFunctionButton.Text = "ActivationSigmoid";
             this.second_activationFunctionButton.UseVisualStyleBackColor = true;
@@ -197,7 +202,8 @@
             // second_neuronsCont
             // 
             this.second_neuronsCont.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.second_neuronsCont.Location = new System.Drawing.Point(106, 78);
+            this.second_neuronsCont.Location = new System.Drawing.Point(119, 98);
+            this.second_neuronsCont.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.second_neuronsCont.Maximum = new decimal(new int[] {
             64,
             0,
@@ -209,7 +215,7 @@
             0,
             0});
             this.second_neuronsCont.Name = "second_neuronsCont";
-            this.second_neuronsCont.Size = new System.Drawing.Size(91, 24);
+            this.second_neuronsCont.Size = new System.Drawing.Size(102, 28);
             this.second_neuronsCont.TabIndex = 17;
             this.second_neuronsCont.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.second_neuronsCont.Value = new decimal(new int[] {
@@ -221,18 +227,19 @@
             // third_biasCheckBox
             // 
             this.third_biasCheckBox.AutoSize = true;
-            this.third_biasCheckBox.Enabled = false;
-            this.third_biasCheckBox.Location = new System.Drawing.Point(393, 118);
+            this.third_biasCheckBox.Location = new System.Drawing.Point(442, 148);
+            this.third_biasCheckBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.third_biasCheckBox.Name = "third_biasCheckBox";
-            this.third_biasCheckBox.Size = new System.Drawing.Size(18, 17);
+            this.third_biasCheckBox.Size = new System.Drawing.Size(22, 21);
             this.third_biasCheckBox.TabIndex = 22;
             this.third_biasCheckBox.UseVisualStyleBackColor = true;
             // 
             // third_activationFunctionButton
             // 
-            this.third_activationFunctionButton.Location = new System.Drawing.Point(217, 111);
+            this.third_activationFunctionButton.Location = new System.Drawing.Point(244, 139);
+            this.third_activationFunctionButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.third_activationFunctionButton.Name = "third_activationFunctionButton";
-            this.third_activationFunctionButton.Size = new System.Drawing.Size(150, 30);
+            this.third_activationFunctionButton.Size = new System.Drawing.Size(169, 38);
             this.third_activationFunctionButton.TabIndex = 21;
             this.third_activationFunctionButton.Text = "ActivationSigmoid";
             this.third_activationFunctionButton.UseVisualStyleBackColor = true;
@@ -240,9 +247,9 @@
             // 
             // third_neuronsCount
             // 
-            this.third_neuronsCount.Enabled = false;
             this.third_neuronsCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.third_neuronsCount.Location = new System.Drawing.Point(106, 114);
+            this.third_neuronsCount.Location = new System.Drawing.Point(119, 142);
+            this.third_neuronsCount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.third_neuronsCount.Maximum = new decimal(new int[] {
             64,
             0,
@@ -254,7 +261,7 @@
             0,
             0});
             this.third_neuronsCount.Name = "third_neuronsCount";
-            this.third_neuronsCount.Size = new System.Drawing.Size(91, 24);
+            this.third_neuronsCount.Size = new System.Drawing.Size(102, 28);
             this.third_neuronsCount.TabIndex = 20;
             this.third_neuronsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.third_neuronsCount.Value = new decimal(new int[] {
@@ -273,37 +280,37 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 46);
+            this.label5.Location = new System.Drawing.Point(12, 58);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(62, 17);
+            this.label5.Size = new System.Drawing.Size(68, 20);
             this.label5.TabIndex = 24;
             this.label5.Text = "1st layer";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 118);
+            this.label6.Location = new System.Drawing.Point(12, 148);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 17);
+            this.label6.Size = new System.Drawing.Size(69, 20);
             this.label6.TabIndex = 25;
             this.label6.Text = "3rd layer";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 82);
+            this.label7.Location = new System.Drawing.Point(12, 102);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(88, 17);
+            this.label7.Size = new System.Drawing.Size(97, 20);
             this.label7.TabIndex = 26;
             this.label7.Text = "Hidden layer";
             // 
             // train_button
             // 
             this.train_button.BackColor = System.Drawing.Color.Red;
-            this.train_button.Location = new System.Drawing.Point(14, 164);
+            this.train_button.Location = new System.Drawing.Point(16, 205);
             this.train_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.train_button.Name = "train_button";
-            this.train_button.Size = new System.Drawing.Size(92, 49);
+            this.train_button.Size = new System.Drawing.Size(104, 61);
             this.train_button.TabIndex = 27;
             this.train_button.Text = "Train";
             this.train_button.UseVisualStyleBackColor = false;
@@ -312,10 +319,10 @@
             // compress_button
             // 
             this.compress_button.BackColor = System.Drawing.Color.Red;
-            this.compress_button.Location = new System.Drawing.Point(14, 222);
+            this.compress_button.Location = new System.Drawing.Point(16, 278);
             this.compress_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.compress_button.Name = "compress_button";
-            this.compress_button.Size = new System.Drawing.Size(404, 30);
+            this.compress_button.Size = new System.Drawing.Size(454, 38);
             this.compress_button.TabIndex = 28;
             this.compress_button.Text = "Compress picture";
             this.compress_button.UseVisualStyleBackColor = false;
@@ -323,9 +330,9 @@
             // 
             // PictureCompressionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 259);
+            this.ClientSize = new System.Drawing.Size(490, 324);
             this.Controls.Add(this.compress_button);
             this.Controls.Add(this.train_button);
             this.Controls.Add(this.label7);

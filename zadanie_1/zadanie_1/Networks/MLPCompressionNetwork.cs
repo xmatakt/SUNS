@@ -89,17 +89,44 @@ namespace zadanie_1.Networks
             for (int i = 0; i < trainingResult.Length; i++)
                 trainingResult[i] = new double[64];
 
+            //for (int i = 0; i < testPicture.Length; i++)
+            //{
+            //    int ind = 0;
+            //    for (int y = 0; y < 8; y++)
+            //    {
+            //        for (int x = 0; x < 8; x++)
+            //        {
+            //            trainingResult[i][ind++] = testPicture[i][x][y];
+            //        }
+            //    }
+            //}
+
             // test the neural networktrainingResult.Length
+//            for(MLDataPair pair: trainingSet ) {
+//            final MLData output = network.compute(pair.getInput());
+//            for(int z=0;z<input;z++){
+//outputquant[x+xoff][y+z]=output.getData()[z];
+
             for (int i = 0; i < trainingResult.Length; i++)
             {
                 double[][] data = new double[1][];
                 data[0] = DataManipulation.Get1DArrayFrom2DArray(testPicture[i], 8, 8);
+                //trainingResult[i] = DataManipulation.Get1DArrayFrom2DArray(testPicture[i], 8, 8);
                 IMLDataSet testSet = new BasicMLDataSet(data, data);
-                //int index = 0;
+                int index = 0;
+
+                //network.Compute(data[0], trainingResult[i]);
                 foreach (IMLDataPair pair in testSet)
                     //trainingResult[i] = 
-                        network.Compute(pair.Input).CopyTo(trainingResult[i], 0, 64);
-                //System.Diagnostics.Debug.WriteLine(index.ToString());
+                    network.Compute(pair.Input).CopyTo(trainingResult[i], 0, 64);
+                ////System.Diagnostics.Debug.WriteLine(index.ToString());
+
+                //foreach (IMLDataPair pair in testSet)
+                //{
+                //    IMLData output = network.Compute(pair.Input);
+                //    Console.WriteLine(pair.Input[0] + @"," + pair.Input[1]
+                //                      + @", actual=" + output[0] + @",ideal=" + pair.Ideal[0]);
+                //}
             }
             System.Windows.Forms.MessageBox.Show("Picture was succesfuly compressed!");
 
