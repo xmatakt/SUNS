@@ -16,6 +16,8 @@ using Encog.ML.Data;
 using Encog.Neural.Networks.Training.Propagation.Resilient;
 using Encog.Neural.Networks.Training.Propagation.Manhattan;
 using Encog.Neural.Networks.Training.Propagation.Quick;
+using Encog.Neural.Networks.Training.Propagation.Back;
+using Encog.Neural.Networks.Training.Propagation.SCG;
 using Encog.ML.Train;
 using Encog.ML.Data.Basic;
 using Encog;
@@ -32,6 +34,9 @@ namespace zadanie_1.Networks
 
         public int Width { get; set; }
         public int Height { get; set; }
+        public double LearningRate { get; set; }
+        public double Momentum { get; set; }
+        public double Error { get; set; }
 
         #region constructors
         public MLPCompressionNetwork(double[][][] trainPicture)
@@ -57,8 +62,10 @@ namespace zadanie_1.Networks
 
         #endregion
 
-        public void Train()
+        public void Train(System.Windows.Forms.ProgressBar progressBar)
         {
+            StreamWriter sw = new StreamWriter("networkTraining.log");
+            double tmp = 100 / (double)trainPicture.Length;
             for (int i = 0; i < trainPicture.Length; i++)
             {
                 double[][] data = new double[1][];
@@ -67,7 +74,9 @@ namespace zadanie_1.Networks
                 //IMLDataSet testSet = DataManipulation.GetBasicDataSetFromOneDimensionalArrays(function.GetTestInput(), function.GetTestIdeal());
 
                 // train the neural network
-                ResilientPropagation train = new ResilientPropagation(network, trainingSet);
+                Backpropagation train = new Backpropagation(network, trainingSet, LearningRate, Momentum);
+                //Backpropagation train = new Backpropagation(network, trainingSet);
+                //ResilientPropagation train = new ResilientPropagation(network, trainingSet);
 
                 int epoch = 1;
                 do
@@ -76,14 +85,20 @@ namespace zadanie_1.Networks
                     //System.Diagnostics.Debug.WriteLine(@"Epoch #" + epoch + @" Error:" + train.Error);
                     //error.Add(train.Error);
                     epoch++;
-                } while ((epoch <= 1000) && (train.Error > 0.0016));
+                } while ((epoch <= 100000) && (train.Error > Error));
+                sw.WriteLine("{0} =--> epoch# {1}, error# {2}", i, epoch, train.Error);
                 train.FinishTraining();
-                System.Diagnostics.Debug.WriteLine("{0}", i);
+                progressBar.Value = (int)(i * tmp);
+                //progressBar.Update();
+                //progressBar.Refresh();
+                //progressBar.PerformStep();
             }
+            sw.Flush();
+            sw.Close();
             System.Windows.Forms.MessageBox.Show("Network succesfuly trained!");
         }
 
-        public void CompressPicture()
+        public Bitmap CompressPicture()
         {
             trainingResult = new double[testPicture.Length][];
             for (int i = 0; i < trainingResult.Length; i++)
@@ -113,12 +128,12 @@ namespace zadanie_1.Networks
                 data[0] = DataManipulation.Get1DArrayFrom2DArray(testPicture[i], 8, 8);
                 //trainingResult[i] = DataManipulation.Get1DArrayFrom2DArray(testPicture[i], 8, 8);
                 IMLDataSet testSet = new BasicMLDataSet(data, data);
-                int index = 0;
+                //int index = 0;
 
-                //network.Compute(data[0], trainingResult[i]);
-                foreach (IMLDataPair pair in testSet)
-                    //trainingResult[i] = 
-                    network.Compute(pair.Input).CopyTo(trainingResult[i], 0, 64);
+                network.Compute(data[0], trainingResult[i]);
+                //foreach (IMLDataPair pair in testSet)
+                //    //trainingResult[i] = 
+                //    network.Compute(pair.Input).CopyTo(trainingResult[i], 0, 64);
                 ////System.Diagnostics.Debug.WriteLine(index.ToString());
 
                 //foreach (IMLDataPair pair in testSet)
@@ -139,6 +154,10 @@ namespace zadanie_1.Networks
                         compressedPicture[x + y * bitmap2.Width]));
             var result = bitmap2 as Image;
             result.Save("kokotina.png", ImageFormat.Png);
+
+            return bitmap2;
+
+            //System.GC.Collect();
         }
     }
 }

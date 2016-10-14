@@ -12,5 +12,9 @@ namespace zadanie_1.Enums
         public const string ActivationTanh = "ActivationTanh";
         public const string ActivationSin = "ActivationSin";
         public const string ActivationRamp = "ActivationRamp";
+        public const string ActivationLog = "ActivationLog";
+        public const string ActivationLinear = "ActivationLinear";
+        public const string ActivationClippedLinear = "ActivationClippedLinear";
+        public const string None = "None";
     }
 }

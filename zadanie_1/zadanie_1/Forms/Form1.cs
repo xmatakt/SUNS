@@ -47,7 +47,7 @@ namespace zadanie_1
             //f.DrawResultAsCurve(pictureBox1, g, mlpNetwork.ReturnResult());
             mlpForm = new MLPNetworkForm(pictureBox1, g, f);
             rbfForm = new RBFNetworkForm(pictureBox1, g, f);
-            compressionForm = new PictureCompressionForm();
+            compressionForm = new PictureCompressionForm(pictureBox1);
             functionPropertiesForm = new FunctionPropertiesForm();
             //rbfNetwork = new RbfNetwork(f);
             //rbfNetwork.TrainNetwork();
@@ -106,7 +106,7 @@ namespace zadanie_1
         private void pictureCompressionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (compressionForm.IsDisposed)
-                compressionForm = new PictureCompressionForm();
+                compressionForm = new PictureCompressionForm(pictureBox1);
 
             compressionForm.StartPosition = FormStartPosition.Manual;
             compressionForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);

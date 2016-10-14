@@ -11,6 +11,10 @@ namespace zadanie_1.Enums
         ActivationSigmoid = 1,
         ActivationTanh = 2,
         ActivationSin = 3,
-        ActivationRamp = 4
+        ActivationRamp = 4,
+        ActivationLog = 5,
+        ActivationLinear = 6,
+        None = 7,
+        ActivationClippedLinear = 8
     }
 }

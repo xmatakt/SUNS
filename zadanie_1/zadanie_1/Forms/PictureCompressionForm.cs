@@ -19,6 +19,7 @@ using Encog.ML.Data;
 using Encog.Neural.Networks.Training.Propagation.Resilient;
 using Encog.Neural.Networks.Training.Propagation.Manhattan;
 using Encog.Neural.Networks.Training.Propagation.Quick;
+using Encog.Neural.Networks.Training.Strategy;
 using Encog.ML.Train;
 using Encog.ML.Data.Basic;
 using Encog;
@@ -33,17 +34,20 @@ namespace zadanie_1.Forms
     {
         private Button actualButton;
         private MLPCompressionNetwork mlpNetwork;
+        private PictureBox pictureBox;
+        private PictureForm pictureForm;
         
         private string trainFile = "";
         private string testFile = "";
         private double[][][] dividedTrainPicture;
         private double[][][] dividedTestPicture; 
 
-        public PictureCompressionForm()
+        public PictureCompressionForm(PictureBox pictureBox)
         {
             InitializeComponent();
-            dividedTrainPicture = null;
-            dividedTestPicture = null;
+            this.pictureBox = pictureBox;
+            this.dividedTrainPicture = null;
+            this.dividedTestPicture = null;
         }
 
         private void train_button_Click(object sender, EventArgs e)
@@ -51,9 +55,14 @@ namespace zadanie_1.Forms
             if (dividedTrainPicture != null)
             {
                 mlpNetwork = new MLPCompressionNetwork(dividedTrainPicture);
+                mlpNetwork.LearningRate = (double)learningRate_upDown.Value;
+                mlpNetwork.Momentum = (double)momentum_upDown.Value;
+                mlpNetwork.Error = (double)error_upDown.Value;
                 GenerateNetwork();
-                train_button.BackColor = Color.Lime;
-                mlpNetwork.Train();
+                mlpNetwork.Train(training_progressBar);
+
+                loadTestData_button.Enabled = true;
+                //training_progressBar.Value = 50;
             }
             else
                 MessageBox.Show("You have to load training data first!");
@@ -64,7 +73,13 @@ namespace zadanie_1.Forms
             if (dividedTestPicture != null)
             {
                 mlpNetwork.SetTestPicture(dividedTestPicture);
-                mlpNetwork.CompressPicture();
+                pictureForm = new PictureForm(mlpNetwork.CompressPicture());
+                if(pictureForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+
+                }
+                //pictureBox.Image =  mlpNetwork.CompressPicture();
+                //pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             }
             else
                 MessageBox.Show("You have to load test data first!");
@@ -78,8 +93,9 @@ namespace zadanie_1.Forms
             network.AddLayer(new BasicLayer(null, true, 64));
             //hidden layers
             AddLayer(network, second_neuronsCont, second_activationFunctionButton, second_biasCheckBox);
+            //network.AddLayer(new BasicLayer(new ActivationLOG(), true, (int)second_neuronsCont.Value));
             //output layer
-            //network.AddLayer(new BasicLayer(new ActivationTANH(), false, 64));
+            //network.AddLayer(new BasicLayer(new ActivationRamp(), false, 64));
             AddLayer(network, third_neuronsCount, third_activationFunctionButton, third_biasCheckBox);
 
             network.Structure.FinalizeStructure();
@@ -105,6 +121,18 @@ namespace zadanie_1.Forms
                 case ActivationFunctionEnum.ActivationRamp:
                     network.AddLayer(new BasicLayer(new ActivationRamp(), hasBias, neuronsCount));
                     break;
+                case ActivationFunctionEnum.ActivationLog:
+                    network.AddLayer(new BasicLayer(new ActivationLOG(), hasBias, neuronsCount));
+                    break;
+                case ActivationFunctionEnum.ActivationLinear:
+                    network.AddLayer(new BasicLayer(new ActivationLinear(), hasBias, neuronsCount));
+                    break;
+                case ActivationFunctionEnum.ActivationClippedLinear:
+                    network.AddLayer(new BasicLayer(new ActivationClippedLinear(), hasBias, neuronsCount));
+                    break;
+                case ActivationFunctionEnum.None:
+                    network.AddLayer(new BasicLayer(null, hasBias, neuronsCount));
+                    break;
                 default:
                     break;
             }
@@ -128,21 +156,9 @@ namespace zadanie_1.Forms
                         arr[index++] = (byte)((bitmap.GetPixel(j, i).R + bitmap.GetPixel(j, i).G + bitmap.GetPixel(j, i).B) / 3);
 
                 dividedTrainPicture = DataManipulation.DividePicture(arr, bitmap.Width, bitmap.Height);
-                //StreamWriter sw = new StreamWriter("output.pgm");
-
-                //sw.WriteLine("P2");
-                //sw.WriteLine(bitmap.Width + " " + bitmap.Height);
-                //sw.WriteLine("255");
-
-                //for (int i = 0; i < arr.Length; i++)
-                //{
-                //    sw.Write("{0} ", arr[i]);
-                //    if (i != 0 && i % bitmap.Width == 0)
-                //        sw.WriteLine("");
-                //}
-
-                //sw.Flush();
-                //sw.Close();
+                trainDataLoaded_label.Text = "Train data: " + new FileInfo(trainFile).Name;
+                
+                train_button.BackColor = Color.Lime;
             }
         }
 
@@ -163,6 +179,10 @@ namespace zadanie_1.Forms
                 dividedTestPicture = DataManipulation.DividePicture(arr, bitmap.Width, bitmap.Height);
                 mlpNetwork.Width = bitmap.Width;
                 mlpNetwork.Height = bitmap.Height;
+
+                testDataLoaded_label.Text = "Test data: " + new FileInfo(testFile).Name;
+                compress_button.Enabled = true;
+                compress_button.BackColor = Color.Lime;
             }
         }
         #endregion
@@ -174,6 +194,10 @@ namespace zadanie_1.Forms
             activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.ActivationTanh.ToString());
             activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.ActivationSin.ToString());
             activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.ActivationRamp.ToString());
+            activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.ActivationLog.ToString());
+            activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.ActivationLinear.ToString());
+            activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.ActivationClippedLinear.ToString());
+            activationFunctionMenuStrip.Items.Add(ActivationFunctionEnum.None.ToString());
         }
 
         private void first_activationFunctionButton_Click(object sender, EventArgs e)

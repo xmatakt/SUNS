@@ -199,6 +199,14 @@ namespace zadanie_1.Networks
                     return ActivationFunctionEnum.ActivationSin;
                 case ActivationFunctionStrings.ActivationRamp:
                     return ActivationFunctionEnum.ActivationRamp;
+                case ActivationFunctionStrings.ActivationLog:
+                    return ActivationFunctionEnum.ActivationLog;
+                case ActivationFunctionStrings.ActivationLinear:
+                    return ActivationFunctionEnum.ActivationLinear;
+                case ActivationFunctionStrings.ActivationClippedLinear:
+                    return ActivationFunctionEnum.ActivationClippedLinear;
+                case ActivationFunctionStrings.None:
+                    return ActivationFunctionEnum.None;
                 default:
                     return ActivationFunctionEnum.ActivationSigmoid;
             }
