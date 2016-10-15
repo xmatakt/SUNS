@@ -62,6 +62,7 @@ namespace zadanie_1.Forms
                 mlpNetwork.Train(training_progressBar);
 
                 loadTestData_button.Enabled = true;
+                ReadProperties("networkTraining.log");
                 //training_progressBar.Value = 50;
             }
             else
@@ -78,8 +79,6 @@ namespace zadanie_1.Forms
                 {
 
                 }
-                //pictureBox.Image =  mlpNetwork.CompressPicture();
-                //pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             }
             else
                 MessageBox.Show("You have to load test data first!");
@@ -140,6 +139,18 @@ namespace zadanie_1.Forms
         #endregion
 
         #region Data loading
+
+        private void ReadProperties(string pathToFile)
+        {
+            StreamReader sr = new StreamReader(pathToFile);
+
+            trainingTime_label.Text = sr.ReadLine().Trim().Split(' ')[2].Trim();
+            mse_label.Text = sr.ReadLine().Trim().Split(':')[1].Trim();
+            bitDiff_label.Text = sr.ReadLine().Trim().Split(':')[1].Trim();
+            compressionRatio_label.Text = sr.ReadLine().Trim().Split(':')[1].Trim();
+
+            sr.Close();
+        }
 
         private void loadTrainData_button_Click(object sender, EventArgs e)
         {

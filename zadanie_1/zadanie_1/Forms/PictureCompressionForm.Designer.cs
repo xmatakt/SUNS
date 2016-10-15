@@ -59,6 +59,14 @@
             this.label10 = new System.Windows.Forms.Label();
             this.error_upDown = new System.Windows.Forms.NumericUpDown();
             this.training_progressBar = new System.Windows.Forms.ProgressBar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.mse_label = new System.Windows.Forms.Label();
+            this.compressionRatio_label = new System.Windows.Forms.Label();
+            this.bitDiff_label = new System.Windows.Forms.Label();
+            this.trainingTime_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.first_neuronsCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.second_neuronsCont)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.third_neuronsCount)).BeginInit();
@@ -459,11 +467,91 @@
             this.training_progressBar.Size = new System.Drawing.Size(92, 30);
             this.training_progressBar.TabIndex = 35;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(456, 139);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 17);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "MSE:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(456, 160);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(126, 17);
+            this.label11.TabIndex = 37;
+            this.label11.Text = "Compression ratio:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(456, 183);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(83, 17);
+            this.label12.TabIndex = 38;
+            this.label12.Text = "Bit difficulty:";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(456, 205);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(94, 17);
+            this.label13.TabIndex = 39;
+            this.label13.Text = "Training time:";
+            // 
+            // mse_label
+            // 
+            this.mse_label.AutoSize = true;
+            this.mse_label.Location = new System.Drawing.Point(621, 139);
+            this.mse_label.Name = "mse_label";
+            this.mse_label.Size = new System.Drawing.Size(12, 17);
+            this.mse_label.TabIndex = 40;
+            this.mse_label.Text = " ";
+            // 
+            // compressionRatio_label
+            // 
+            this.compressionRatio_label.AutoSize = true;
+            this.compressionRatio_label.Location = new System.Drawing.Point(621, 160);
+            this.compressionRatio_label.Name = "compressionRatio_label";
+            this.compressionRatio_label.Size = new System.Drawing.Size(12, 17);
+            this.compressionRatio_label.TabIndex = 41;
+            this.compressionRatio_label.Text = " ";
+            // 
+            // bitDiff_label
+            // 
+            this.bitDiff_label.AutoSize = true;
+            this.bitDiff_label.Location = new System.Drawing.Point(621, 183);
+            this.bitDiff_label.Name = "bitDiff_label";
+            this.bitDiff_label.Size = new System.Drawing.Size(12, 17);
+            this.bitDiff_label.TabIndex = 42;
+            this.bitDiff_label.Text = " ";
+            // 
+            // trainingTime_label
+            // 
+            this.trainingTime_label.AutoSize = true;
+            this.trainingTime_label.Location = new System.Drawing.Point(621, 205);
+            this.trainingTime_label.Name = "trainingTime_label";
+            this.trainingTime_label.Size = new System.Drawing.Size(12, 17);
+            this.trainingTime_label.TabIndex = 43;
+            this.trainingTime_label.Text = " ";
+            // 
             // PictureCompressionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 259);
+            this.Controls.Add(this.trainingTime_label);
+            this.Controls.Add(this.bitDiff_label);
+            this.Controls.Add(this.compressionRatio_label);
+            this.Controls.Add(this.mse_label);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.training_progressBar);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.error_upDown);
@@ -540,5 +628,13 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown error_upDown;
         private System.Windows.Forms.ProgressBar training_progressBar;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label mse_label;
+        private System.Windows.Forms.Label compressionRatio_label;
+        private System.Windows.Forms.Label bitDiff_label;
+        private System.Windows.Forms.Label trainingTime_label;
     }
 }

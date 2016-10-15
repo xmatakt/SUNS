@@ -64,17 +64,25 @@ namespace zadanie_1.Networks
 
         public void Train(System.Windows.Forms.ProgressBar progressBar)
         {
+            System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
             StreamWriter sw = new StreamWriter("networkTraining.log");
             double tmp = 100 / (double)trainPicture.Length;
+            StringBuilder logContent = new StringBuilder();
+            Backpropagation train = null;
+
+            logContent.AppendLine("Elapsed time: elapsedTime");
+            logContent.AppendLine("MSE: mse");
+            logContent.AppendLine("Bit difficulty: bitDiff");
+            logContent.Append("Compression ratio: compRatio");
+            stopWatch.Start();
             for (int i = 0; i < trainPicture.Length; i++)
             {
                 double[][] data = new double[1][];
                 data[0] = DataManipulation.Get1DArrayFrom2DArray(trainPicture[i], 8, 8);
                 IMLDataSet trainingSet = new BasicMLDataSet(data, data);
-                //IMLDataSet testSet = DataManipulation.GetBasicDataSetFromOneDimensionalArrays(function.GetTestInput(), function.GetTestIdeal());
 
                 // train the neural network
-                Backpropagation train = new Backpropagation(network, trainingSet, LearningRate, Momentum);
+                train = new Backpropagation(network, trainingSet, LearningRate, Momentum);
                 //Backpropagation train = new Backpropagation(network, trainingSet);
                 //ResilientPropagation train = new ResilientPropagation(network, trainingSet);
 
@@ -82,19 +90,29 @@ namespace zadanie_1.Networks
                 do
                 {
                     train.Iteration();
-                    //System.Diagnostics.Debug.WriteLine(@"Epoch #" + epoch + @" Error:" + train.Error);
-                    //error.Add(train.Error);
                     epoch++;
                 } while ((epoch <= 100000) && (train.Error > Error));
-                sw.WriteLine("{0} =--> epoch# {1}, error# {2}", i, epoch, train.Error);
+
+                logContent.Append("\n" + i + " =--> epoch# " + epoch + " error# " + train.Error);
+                //sw.WriteLine("{0} =--> epoch# {1}, error# {2}", i, epoch, train.Error);
                 train.FinishTraining();
                 progressBar.Value = (int)(i * tmp);
-                //progressBar.Update();
-                //progressBar.Refresh();
-                //progressBar.PerformStep();
             }
+            stopWatch.Stop();
+            
+            TimeSpan ts = stopWatch.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}.{2:00}s", ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            logContent.Replace("elapsedTime", elapsedTime);
+            logContent.Replace("mse", train.Error.ToString("0.###E+0", System.Globalization.CultureInfo.InvariantCulture));
+            logContent.Replace("bitDiff", "100");
+            logContent.Replace("compRatio", "100");
+
+            sw.Write(logContent.ToString());
             sw.Flush();
             sw.Close();
+
+            //sw = new StreamWriter(,)
             System.Windows.Forms.MessageBox.Show("Network succesfuly trained!");
         }
 
@@ -104,46 +122,13 @@ namespace zadanie_1.Networks
             for (int i = 0; i < trainingResult.Length; i++)
                 trainingResult[i] = new double[64];
 
-            //for (int i = 0; i < testPicture.Length; i++)
-            //{
-            //    int ind = 0;
-            //    for (int y = 0; y < 8; y++)
-            //    {
-            //        for (int x = 0; x < 8; x++)
-            //        {
-            //            trainingResult[i][ind++] = testPicture[i][x][y];
-            //        }
-            //    }
-            //}
-
-            // test the neural networktrainingResult.Length
-//            for(MLDataPair pair: trainingSet ) {
-//            final MLData output = network.compute(pair.getInput());
-//            for(int z=0;z<input;z++){
-//outputquant[x+xoff][y+z]=output.getData()[z];
-
             for (int i = 0; i < trainingResult.Length; i++)
             {
                 double[][] data = new double[1][];
                 data[0] = DataManipulation.Get1DArrayFrom2DArray(testPicture[i], 8, 8);
-                //trainingResult[i] = DataManipulation.Get1DArrayFrom2DArray(testPicture[i], 8, 8);
                 IMLDataSet testSet = new BasicMLDataSet(data, data);
-                //int index = 0;
-
                 network.Compute(data[0], trainingResult[i]);
-                //foreach (IMLDataPair pair in testSet)
-                //    //trainingResult[i] = 
-                //    network.Compute(pair.Input).CopyTo(trainingResult[i], 0, 64);
-                ////System.Diagnostics.Debug.WriteLine(index.ToString());
-
-                //foreach (IMLDataPair pair in testSet)
-                //{
-                //    IMLData output = network.Compute(pair.Input);
-                //    Console.WriteLine(pair.Input[0] + @"," + pair.Input[1]
-                //                      + @", actual=" + output[0] + @",ideal=" + pair.Ideal[0]);
-                //}
             }
-            System.Windows.Forms.MessageBox.Show("Picture was succesfuly compressed!");
 
             byte[] compressedPicture = DataManipulation.GetPictureArrayFrom2D(trainingResult, Width, Height);
 
@@ -152,12 +137,11 @@ namespace zadanie_1.Networks
                 for (int x = 0; x < bitmap2.Width; x++)
                     bitmap2.SetPixel(x, y, Color.FromArgb(compressedPicture[x + y * bitmap2.Width], compressedPicture[x + y * bitmap2.Width],
                         compressedPicture[x + y * bitmap2.Width]));
+
             var result = bitmap2 as Image;
-            result.Save("kokotina.png", ImageFormat.Png);
+            result.Save("compressedPicture.png", ImageFormat.Png);
 
             return bitmap2;
-
-            //System.GC.Collect();
         }
     }
 }

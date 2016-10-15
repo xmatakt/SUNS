@@ -109,8 +109,9 @@ namespace zadanie_1
                 compressionForm = new PictureCompressionForm(pictureBox1);
 
             compressionForm.StartPosition = FormStartPosition.Manual;
-            compressionForm.Location = new Point(this.Location.X + this.Width, this.Location.Y);
+            compressionForm.Location = new Point(this.Location.X + 24, this.Location.Y + 100);
             compressionForm.Show();
+            compressionForm.Focus();
         }
     }
 }
