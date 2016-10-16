@@ -102,7 +102,7 @@
             this.first_activationFunctionButton.Name = "first_activationFunctionButton";
             this.first_activationFunctionButton.Size = new System.Drawing.Size(150, 30);
             this.first_activationFunctionButton.TabIndex = 10;
-            this.first_activationFunctionButton.Text = "ActivationSigmoid";
+            this.first_activationFunctionButton.Text = "None";
             this.first_activationFunctionButton.UseVisualStyleBackColor = true;
             this.first_activationFunctionButton.Click += new System.EventHandler(this.first_activationFunctionButton_Click);
             // 
@@ -286,7 +286,7 @@
             // 
             this.activationFunctionMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.activationFunctionMenuStrip.Name = "contextMenuStrip1";
-            this.activationFunctionMenuStrip.Size = new System.Drawing.Size(67, 4);
+            this.activationFunctionMenuStrip.Size = new System.Drawing.Size(61, 4);
             this.activationFunctionMenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.activationFunctionMenuStrip_ItemClicked);
             // 
             // label5
