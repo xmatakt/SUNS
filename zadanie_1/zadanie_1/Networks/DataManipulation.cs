@@ -101,7 +101,7 @@ namespace zadanie_1.Networks
                 int start = (i - (i % cx)) * countInSquare + (i % cx) * countInRow;
                 for (int y = 0; y < countInRow; y++)
                     for (int x = 0; x < countInRow; x++)
-                        dividedPicture[i][x][y] = arr[start + x + y * width] / (double)255;
+                        dividedPicture[i][x][y] = (arr[start + x + y * width]) / (double)255;
             }
 
             return dividedPicture;

@@ -48,6 +48,8 @@ namespace zadanie_1.Forms
             this.pictureBox = pictureBox;
             this.dividedTrainPicture = null;
             this.dividedTestPicture = null;
+            this.openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            this.openFileDialog.FileName = "";
         }
 
         private void train_button_Click(object sender, EventArgs e)

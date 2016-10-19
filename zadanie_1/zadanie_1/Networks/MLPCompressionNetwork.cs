@@ -105,14 +105,14 @@ namespace zadanie_1.Networks
                 ts.Milliseconds / 10);
             logContent.Replace("elapsedTime", elapsedTime);
             logContent.Replace("mse", train.Error.ToString("0.###E+0", System.Globalization.CultureInfo.InvariantCulture));
-            logContent.Replace("bitDiff", "100");
-            logContent.Replace("compRatio", "100");
+            double compRatio = 64.0d / network.GetLayerNeuronCount(1);
+            double bitDiff = 8.0d / compRatio;
+            logContent.Replace("bitDiff", bitDiff.ToString());
+            logContent.Replace("compRatio", compRatio.ToString());
 
             sw.Write(logContent.ToString());
             sw.Flush();
             sw.Close();
-
-            //sw = new StreamWriter(,)
             System.Windows.Forms.MessageBox.Show("Network succesfuly trained!");
         }
 
