@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TimeSeriesPrediction.Properties
-{
-
-
+namespace TimeSeriesPrediction.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,49 +22,155 @@ namespace TimeSeriesPrediction.Properties
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TimeSeriesPrediction.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1101
+        ///8
+        ///8
+        ///57
+        ///8
+        ///8
+        ///57
+        ///8
+        ///8
+        ///57
+        ///404
+        ///404
+        ///1101
+        ///8
+        ///8
+        ///57
+        ///8
+        ///8
+        ///57
+        ///8
+        ///8
+        ///57
+        ///404
+        ///404
+        ///1101
+        ///8
+        ///8
+        ///57
+        ///8
+        ///8
+        ///57
+        ///8
+        ///8
+        ///57
+        ///404
+        ///404
+        ///1101
+        ///8
+        ///8
+        ///57
+        ///8
+        ///8
+        ///57
+        ///8
+        ///8
+        ///57
+        ///404
+        ///404
+        ///1101
+        ///8
+        ///8
+        ///57
+        ///404
+        ///1135
+        ///1713
+        ///2517
+        ///2043
+        ///3082
+        ///2580
+        ///1946
+        ///3460
+        ///3079
+        ///2664
+        ///6349
+        ///3287
+        ///3056
+        ///7846
+        ///3390
+        ///3165
+        ///8759
+        ///2509
+        ///1657
+        ///7850
+        ///3415
+        ///3239
+        ///10050
+        ///3149
+        ///3407
+        ///10873
+        ///1079
+        ///1162
+        ///2565
+        ///810
+        ///923
+        ///10185
+        ///467
+        ///766
+        ///1987
+        ///836
+        ///1091
+        ///2712
+        ///924
+        ///1158
+        ///2975
+        ///910
+        ///885
+        ///10539
+        ///624
+        ///868
+        ///2259
+        ///1122
+        ///1343
+        ///3313
+        ///1181
+        ///1414
+        ///3 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string trace {
+            get {
+                return ResourceManager.GetString("trace", resourceCulture);
             }
         }
     }

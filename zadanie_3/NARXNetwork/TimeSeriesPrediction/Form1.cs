@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using TimeSeriesPrediction.Classes;
+
 namespace TimeSeriesPrediction
 {
     public partial class Form1 : Form
@@ -15,6 +17,13 @@ namespace TimeSeriesPrediction
         public Form1()
         {
             InitializeComponent();
+
+            TimeSeriesData sd = new TimeSeriesData();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
