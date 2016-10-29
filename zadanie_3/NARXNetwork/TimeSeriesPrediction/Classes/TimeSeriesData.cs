@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
+using TimeSeriesPrediction.Enumerations;
 
 namespace TimeSeriesPrediction.Classes
 {
@@ -11,14 +12,16 @@ namespace TimeSeriesPrediction.Classes
         private const int trainingSetLength = 900;
         private const int validationSetLength = 100;
         private const int testSetLength = 500;
+        private const int closedLoopLength = 1000;
         private double min;
         private double max;
         private int startPoint;
+        private int loopedStartPoint;
         private double[] allData;
         private double[] trainigSet = new double[trainingSetLength];
         private double[] validationSet = new double[validationSetLength];
         private double[] testSet = new double[testSetLength];
-        private double[] closedLoopTestSet = new double[testSetLength];
+        private double[] closedLoopTestSet = new double[closedLoopLength];
 
         public TimeSeriesData()
         {
@@ -27,20 +30,36 @@ namespace TimeSeriesPrediction.Classes
             NormalizeArrays();
         }
 
-        public double[] ReturnSet(string dataSet)
+        public double[] ReturnSet(SetTypeEnum dataSetType)
         {
-            switch (dataSet)
+            switch (dataSetType)
             {
-                case "TrainingSet":
+                case SetTypeEnum.TrainingSet:
                     return trainigSet;
-                case "ValidationSet":
+                case SetTypeEnum.ValidationSet:
                     return validationSet;
-                case "TestSet":
+                case SetTypeEnum.TestSet:
                     return testSet;
+                case SetTypeEnum.ClosedLoopSet:
+                    return closedLoopTestSet;
+                case SetTypeEnum.AllData:
+                    return allData; 
                 default:
                     return null;
             }
         }
+
+        public int GetTrainingSetLength() { return trainingSetLength; }
+
+        public int GetValidationSetLength() { return validationSetLength; }
+
+        public int GetTestSetLength() { return testSetLength; }
+
+        public int GetClosedLoopSetLength() { return closedLoopLength; }
+
+        public int GetStartPoint() { return startPoint; }
+
+        public int GetLoopedStartPoint() { return loopedStartPoint; }
 
         private void GetDataFromResource()
         {
@@ -71,6 +90,10 @@ namespace TimeSeriesPrediction.Classes
 
             for (int i = 0; i < testSetLength; i++)
                 testSet[i] = allData[startPoint + trainingSetLength + validationSetLength + i];
+
+            loopedStartPoint = new Random().Next(0, allData.Length - 1000);
+            for (int i = 0; i < closedLoopLength; i++)
+                closedLoopTestSet[i] = allData[i + loopedStartPoint];
         }
 
         private void NormalizeArray(double[] data)
@@ -84,9 +107,11 @@ namespace TimeSeriesPrediction.Classes
 
         private void NormalizeArrays()
         {
+            NormalizeArray(allData);
             NormalizeArray(trainigSet);
             NormalizeArray(validationSet);
             NormalizeArray(testSet);
+            NormalizeArray(closedLoopTestSet);
         }
     }
 }

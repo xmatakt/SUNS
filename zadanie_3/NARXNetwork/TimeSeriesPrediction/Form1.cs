@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using GraphLib;
 
 using TimeSeriesPrediction.Classes;
+using TimeSeriesPrediction.Forms;
+using TimeSeriesPrediction.Enumerations;
 
 namespace TimeSeriesPrediction
 {
@@ -20,34 +22,33 @@ namespace TimeSeriesPrediction
         {
             InitializeComponent();
 
-            //NARXNetwork net = new NARXNetwork();
-            display.DataSources.Add(new DataSource());
-            display.DataSources[0].Name = "Pokusny graf1";
-            display.DataSources[0].GraphColor = Color.Green;
-            //display.DataSources[0].AutoScaleX = true;
-            display.DataSources[0].AutoScaleY = true;
-            display.DataSources[0].Length = 500;
+            ErrorForm errorForm = new ErrorForm();
 
-            for (int i = 0; i < display.DataSources[0].Length; i++)
-            {
-                display.DataSources[0].Samples[i].x = i;
-                display.DataSources[0].Samples[i].y = (float)Math.Sin(i);
-            }
+            display_all.SetDisplayRangeX(0, 100);
+            display_all.SetGridOriginX(0.0f);
+            display_all.SetGridDistanceX(100);
+            display_all.PanelLayout = PlotterGraphPaneEx.LayoutMode.NORMAL;
+            display_all.Smoothing = System.Drawing.Drawing2D.SmoothingMode.None;
 
-            display.DataSources.Add(new DataSource());
-            display.DataSources[1].Name = "Pokusny graf2";
-            display.DataSources[1].GraphColor = Color.Red;
-            //display.DataSources[0].AutoScaleX = true;
-            display.DataSources[1].AutoScaleY = true;
-            display.DataSources[1].Length = 500;
+            NARXNetwork net = new NARXNetwork();
 
-            for (int i = 0; i < display.DataSources[1].Length; i++)
-            {
-                display.DataSources[1].Samples[i].x = i;
-                display.DataSources[1].Samples[i].y = (float)Math.Cos(i);
-            }
+            //  ERROR DISPLAY
+            GenerateGraph.AddDisplayDataSource(errorForm.display, "Training error", Color.Red, net.GetTrainingTestError(), 0);
+            GenerateGraph.AddDisplayDataSource(errorForm.display, "Validation error", Color.Blue, net.GetValidationError(), 0);
+            errorForm.Show();
 
-            display.Refresh();
+            //  USED DATA DISPLAY
+            GenerateGraph.AddDisplayDataSource(display_all, "Training", Color.Red, net.GetTimeSeriesData(SetTypeEnum.TrainingSet), 0);
+            GenerateGraph.AddDisplayDataSource(display_all, "Validation", Color.Green, net.GetTimeSeriesData(SetTypeEnum.ValidationSet), 900);
+            GenerateGraph.AddDisplayDataSource(display_all, "Test", Color.Blue, net.GetTimeSeriesData(SetTypeEnum.TestSet), 1000);
+
+            //  SERIES-PARALLEL PREDICTION GRAPH
+            GenerateGraph.AddDisplayDataSource(display_prediction, "Original", Color.DarkBlue, net.GetTimeSeriesData(SetTypeEnum.TestSet), 0);
+            GenerateGraph.AddDisplayDataSource(display_prediction, "Predicted", Color.DarkRed, net.GetPredictedData(), 0);
+
+            //  PARALLEL (LOOPED) PREDICTION
+            GenerateGraph.AddDisplayDataSource(display_loopPrediction, "Original", Color.DarkBlue, net.GetTimeSeriesData(SetTypeEnum.ClosedLoopSet), 0);
+            GenerateGraph.AddDisplayDataSource(display_loopPrediction, "Looped", Color.DarkRed, net.GetPredictedLoopedData(), 0);
         }
 
         private void Form1_Load(object sender, EventArgs e)
