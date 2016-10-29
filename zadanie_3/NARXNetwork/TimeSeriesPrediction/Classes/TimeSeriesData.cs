@@ -11,8 +11,10 @@ namespace TimeSeriesPrediction.Classes
         private const int trainingSetLength = 900;
         private const int validationSetLength = 100;
         private const int testSetLength = 500;
+        private double min;
+        private double max;
         private int startPoint;
-        private int[] allData;
+        private double[] allData;
         private double[] trainigSet = new double[trainingSetLength];
         private double[] validationSet = new double[validationSetLength];
         private double[] testSet = new double[testSetLength];
@@ -20,7 +22,7 @@ namespace TimeSeriesPrediction.Classes
 
         public TimeSeriesData()
         {
-            GetDataFromResourceFile();
+            GetDataFromResource();
             FillSets();
             NormalizeArrays();
         }
@@ -40,14 +42,16 @@ namespace TimeSeriesPrediction.Classes
             }
         }
 
-        private void GetDataFromResourceFile()
+        private void GetDataFromResource()
         {
-            var listOfNumbers = new List<int>();
+            var listOfNumbers = new List<double>();
             foreach (var number in TimeSeriesPrediction.Properties.Resources.trace.Split('\n'))
             {
-                listOfNumbers.Add(Convert.ToInt32(number));
+                listOfNumbers.Add(Convert.ToDouble(number));
             }
             allData = listOfNumbers.ToArray();
+            min = allData.Min();
+            max = allData.Max();
         }
 
         /// <summary>
@@ -71,9 +75,6 @@ namespace TimeSeriesPrediction.Classes
 
         private void NormalizeArray(double[] data)
         {
-            int min = allData.Min();
-            int max = allData.Max();
-
             double a = 1.0d / (double)(max - min);
             double b = -a * min;
 
