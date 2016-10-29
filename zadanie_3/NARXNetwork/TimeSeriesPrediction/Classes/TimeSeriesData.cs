@@ -1,11 +1,6 @@
-﻿#region Zdroje
-//  https://github.com/encog/encog-dotnet-core/blob/master/ConsoleExamples/Examples/Predict/PredictSunspot.cs
-//  Programming Neural Networks with Encog3 in C# (Jeff Heaton)
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-//using System.Linq;
+using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
 
@@ -27,6 +22,22 @@ namespace TimeSeriesPrediction.Classes
         {
             GetDataFromResourceFile();
             FillSets();
+            NormalizeArrays();
+        }
+
+        public double[] ReturnSet(string dataSet)
+        {
+            switch (dataSet)
+            {
+                case "TrainingSet":
+                    return trainigSet;
+                case "ValidationSet":
+                    return validationSet;
+                case "TestSet":
+                    return testSet;
+                default:
+                    return null;
+            }
         }
 
         private void GetDataFromResourceFile()
@@ -56,6 +67,25 @@ namespace TimeSeriesPrediction.Classes
 
             for (int i = 0; i < testSetLength; i++)
                 testSet[i] = allData[startPoint + trainingSetLength + validationSetLength + i];
+        }
+
+        private void NormalizeArray(double[] data)
+        {
+            int min = allData.Min();
+            int max = allData.Max();
+
+            double a = 1.0d / (double)(max - min);
+            double b = -a * min;
+
+            for (int i = 0; i < data.Length; i++)
+                data[i] = a * data[i] + b;
+        }
+
+        private void NormalizeArrays()
+        {
+            NormalizeArray(trainigSet);
+            NormalizeArray(validationSet);
+            NormalizeArray(testSet);
         }
     }
 }

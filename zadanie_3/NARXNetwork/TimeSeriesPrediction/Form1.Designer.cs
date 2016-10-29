@@ -28,13 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.display = new GraphLib.PlotterDisplayEx();
             this.SuspendLayout();
+            // 
+            // display
+            // 
+            this.display.BackColor = System.Drawing.Color.Transparent;
+            this.display.BackgroundColorBot = System.Drawing.Color.Gray;
+            this.display.BackgroundColorTop = System.Drawing.Color.White;
+            this.display.DashedGridColor = System.Drawing.Color.DarkGray;
+            this.display.DoubleBuffering = false;
+            this.display.Location = new System.Drawing.Point(0, 0);
+            this.display.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.display.Name = "display";
+            this.display.PlaySpeed = 0.5F;
+            this.display.Size = new System.Drawing.Size(823, 550);
+            this.display.SolidGridColor = System.Drawing.Color.DarkGray;
+            this.display.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.ClientSize = new System.Drawing.Size(932, 563);
+            this.Controls.Add(this.display);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -43,6 +61,9 @@
         }
 
         #endregion
+
+        private GraphLib.PlotterDisplayEx display;
+
     }
 }
 
