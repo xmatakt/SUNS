@@ -23,6 +23,7 @@ namespace TimeSeriesPrediction
     {
         ErrorForm errorForm;
         BigGraphForm bigForm;
+        NARXNetwork net;
 
         public Form1()
         {
@@ -30,7 +31,7 @@ namespace TimeSeriesPrediction
 
             errorForm = new ErrorForm();
             bigForm = new BigGraphForm();
-            NARXNetwork net = new NARXNetwork();
+            net = new NARXNetwork();
 
             //  ERROR DISPLAY
             GenerateGraph.SetZedGraph(errorForm.zedGraph_error, "TRAINING ERRORS", "Epochs", "Mean Squared Error (mse)", true);
@@ -40,6 +41,7 @@ namespace TimeSeriesPrediction
 
             //  USED DATA DISPLAY
             GenerateGraph.SetZedGraph(zedGraph_all, "USED DATA", "X AXIS", "Y AXIS");
+
             GenerateGraph.AddCurveToZedGraph(zedGraph_all, "Training set", SymbolType.None,
                 Color.Red, net.GetTimeSeriesData(SetTypeEnum.TrainingSet), 0);
             GenerateGraph.AddCurveToZedGraph(zedGraph_all, "Validation set", SymbolType.None,
@@ -49,17 +51,23 @@ namespace TimeSeriesPrediction
 
             //  SERIES-PARALLEL PREDICTION GRAPH
             GenerateGraph.SetZedGraph(zedGraph_serial, "SERIES-PARALLEL PREDICTION GRAPH", "X AXIS","Y AXIS");
-            GenerateGraph.AddCurveToZedGraph(zedGraph_serial, "Original", SymbolType.Square, 
-                Color.DarkBlue, net.GetTimeSeriesData(SetTypeEnum.TestSet), 0);
-            GenerateGraph.AddCurveToZedGraph(zedGraph_serial, "Predicted", SymbolType.XCross,
-            Color.DarkRed, net.GetPredictedData(), 0);
+
+            GenerateGraph.AddCurveToZedGraph(zedGraph_serial, "Original", SymbolType.None, 
+                Color.LightBlue, net.GetTimeSeriesData(SetTypeEnum.TestSet), 0);
+            GenerateGraph.AddCurveToZedGraph(zedGraph_serial, "Predicted", SymbolType.None,
+                Color.DarkRed, net.GetPredictedData(), 0);
+            //GenerateGraph.AddCurveToZedGraph(zedGraph_serial, "Error", SymbolType.None,
+            //    Color.OrangeRed, net.GetPredictedData(), net.GetTimeSeriesData(SetTypeEnum.TestSet), 0);
 
             //  PARALLEL (LOOPED) PREDICTION
             GenerateGraph.SetZedGraph(zedGraph_looped, "PARALLEL (LOOPED) PREDICTION", "X AXIS", "Y AXIS");
-            GenerateGraph.AddCurveToZedGraph(zedGraph_looped, "Original", SymbolType.Square,
-                Color.DarkBlue, net.GetTimeSeriesData(SetTypeEnum.ClosedLoopSet), 0);
-            GenerateGraph.AddCurveToZedGraph(zedGraph_looped, "Predicted", SymbolType.XCross,
+
+            GenerateGraph.AddCurveToZedGraph(zedGraph_looped, "Original", SymbolType.None,
+                Color.LightBlue, net.GetTimeSeriesData(SetTypeEnum.ClosedLoopSet), 0);
+            GenerateGraph.AddCurveToZedGraph(zedGraph_looped, "Predicted", SymbolType.None,
             Color.DarkRed, net.GetPredictedLoopedData(), 0);
+            //GenerateGraph.AddCurveToZedGraph(zedGraph_looped, "Error", SymbolType.None,
+            //    Color.OrangeRed, net.GetTimeSeriesData(SetTypeEnum.ClosedLoopSet), net.GetPredictedLoopedData(), 0);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -73,7 +81,8 @@ namespace TimeSeriesPrediction
                 if (errorForm.ShowDialog() == System.Windows.Forms.DialogResult.OK) { };
             if (e.KeyCode == Keys.F2)
             {
-                CopyZedPane(zedGraph_all.GraphPane, bigForm.zedGraphControl1.GraphPane);
+                bigForm.zedGraph_error.GraphPane.CurveList.Clear();
+                GenerateGraph.CopyZedPane(zedGraph_all.GraphPane, bigForm.zedGraph_main.GraphPane, bigForm);
                 if (bigForm.ShowDialog() == System.Windows.Forms.DialogResult.OK) { };
             }
         }
@@ -84,7 +93,12 @@ namespace TimeSeriesPrediction
                 if (errorForm.ShowDialog() == System.Windows.Forms.DialogResult.OK) { };
             if (e.KeyCode == Keys.F2)
             {
-                CopyZedPane(zedGraph_serial.GraphPane, bigForm.zedGraphControl1.GraphPane);
+                GenerateGraph.CopyZedPane(zedGraph_serial.GraphPane, bigForm.zedGraph_main.GraphPane, bigForm);
+
+                bigForm.zedGraph_error.GraphPane.CurveList.Clear();
+                GenerateGraph.SetZedGraph(bigForm.zedGraph_error, "", "Time", "Error");
+                GenerateGraph.AddErrorToZedGraph(bigForm.zedGraph_error, "Error", SymbolType.Circle, Color.OrangeRed,
+                    net.GetTimeSeriesData(SetTypeEnum.TestSet), net.GetPredictedData(), 0);
                 if (bigForm.ShowDialog() == System.Windows.Forms.DialogResult.OK) { };
             }
         }
@@ -96,25 +110,14 @@ namespace TimeSeriesPrediction
 
             if(e.KeyCode == Keys.F2)
             {
-                CopyZedPane(zedGraph_looped.GraphPane, bigForm.zedGraphControl1.GraphPane);
+                GenerateGraph.CopyZedPane(zedGraph_looped.GraphPane, bigForm.zedGraph_main.GraphPane, bigForm);
+
+                bigForm.zedGraph_error.GraphPane.CurveList.Clear();
+                GenerateGraph.SetZedGraph(bigForm.zedGraph_error, "", "Time", "Error");
+                GenerateGraph.AddErrorToZedGraph(bigForm.zedGraph_error, "Error", SymbolType.Circle, Color.OrangeRed,
+                    net.GetTimeSeriesData(SetTypeEnum.ClosedLoopSet), net.GetPredictedLoopedData(), 0);
                 if (bigForm.ShowDialog() == System.Windows.Forms.DialogResult.OK) { };
             }
-        }
-
-        private void CopyZedPane(GraphPane sourcePane, GraphPane targetPane)
-        {
-            targetPane.CurveList.Clear();
-
-            targetPane.Title.Text = sourcePane.Title.Text;
-            targetPane.XAxis.Title.Text = sourcePane.XAxis.Title.Text;
-            targetPane.YAxis.Title.Text = sourcePane.YAxis.Title.Text;
-
-            for (int i = 0; i < sourcePane.CurveList.Count; i++)
-            {
-                var listItem = sourcePane.CurveList[i];
-                targetPane.AddCurve(listItem.Label.Text, listItem.Points, listItem.Color);
-            }
-            bigForm.zedGraphControl1.AxisChange();
         }
     }
 }

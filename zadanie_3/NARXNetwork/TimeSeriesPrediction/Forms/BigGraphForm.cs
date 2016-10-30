@@ -22,9 +22,18 @@ namespace TimeSeriesPrediction.Forms
         private void zedGraphControl1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
+            {
+                maximized = false;
+                WindowState = FormWindowState.Normal;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
+            }
+                
             if (e.KeyCode == Keys.Escape)
+            {
+                maximized = false;
+                WindowState = FormWindowState.Normal;
                 DialogResult = System.Windows.Forms.DialogResult.OK;
+            }
             if (e.KeyCode == Keys.F2)
             {
                 if (maximized)
