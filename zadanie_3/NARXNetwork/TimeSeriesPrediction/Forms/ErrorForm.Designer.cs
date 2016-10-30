@@ -29,38 +29,45 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.display = new GraphLib.PlotterDisplayEx();
+            this.zedGraph_error = new ZedGraph.ZedGraphControl();
             this.SuspendLayout();
             // 
-            // display
+            // zedGraph_error
             // 
-            this.display.BackColor = System.Drawing.Color.Transparent;
-            this.display.BackgroundColorBot = System.Drawing.Color.White;
-            this.display.BackgroundColorTop = System.Drawing.Color.White;
-            this.display.DashedGridColor = System.Drawing.Color.DarkGray;
-            this.display.DoubleBuffering = false;
-            this.display.Location = new System.Drawing.Point(0, 0);
-            this.display.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.display.Name = "display";
-            this.display.PlaySpeed = 0.5F;
-            this.display.Size = new System.Drawing.Size(741, 604);
-            this.display.SolidGridColor = System.Drawing.Color.DarkGray;
-            this.display.TabIndex = 0;
+            this.zedGraph_error.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.zedGraph_error.Location = new System.Drawing.Point(13, 13);
+            this.zedGraph_error.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.zedGraph_error.Name = "zedGraph_error";
+            this.zedGraph_error.ScrollGrace = 0D;
+            this.zedGraph_error.ScrollMaxX = 0D;
+            this.zedGraph_error.ScrollMaxY = 0D;
+            this.zedGraph_error.ScrollMaxY2 = 0D;
+            this.zedGraph_error.ScrollMinX = 0D;
+            this.zedGraph_error.ScrollMinY = 0D;
+            this.zedGraph_error.ScrollMinY2 = 0D;
+            this.zedGraph_error.Size = new System.Drawing.Size(1582, 667);
+            this.zedGraph_error.TabIndex = 0;
+            this.zedGraph_error.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zedGraph_error_KeyDown);
             // 
             // ErrorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 605);
-            this.Controls.Add(this.display);
+            this.ClientSize = new System.Drawing.Size(1608, 693);
+            this.Controls.Add(this.zedGraph_error);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "ErrorForm";
             this.Text = "ErrorForm";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ErrorForm_KeyDown);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public GraphLib.PlotterDisplayEx display;
+        public ZedGraph.ZedGraphControl zedGraph_error;
+
     }
 }

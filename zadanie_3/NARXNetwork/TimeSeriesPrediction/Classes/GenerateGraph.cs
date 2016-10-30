@@ -1,6 +1,7 @@
 ﻿using System;
 
 using GraphLib;
+using ZedGraph;
 using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
@@ -38,22 +39,53 @@ namespace TimeSeriesPrediction.Classes
             display.Refresh();
         }
 
-        private static String RenderXLabel(DataSource s, int idx)
+        public static void SetZedGraph(ZedGraphControl zgc, string graphName, string xAxisLabel, string yAxisLabel,
+            bool IsLogAxis = false)
         {
-            if (s.AutoScaleX)
+            // get a reference to the GraphPane
+            GraphPane myPane = zgc.GraphPane;
+
+            // Set the Titles
+            myPane.Title.Text = graphName;
+            myPane.XAxis.Title.Text = xAxisLabel;
+            myPane.YAxis.Title.Text = yAxisLabel;
+
+            if (IsLogAxis)
+                myPane.YAxis.Type = AxisType.Log;
+
+            // Add gridlines to the plot, and make them gray
+            myPane.XAxis.MajorGrid.IsVisible = true;
+            myPane.YAxis.MajorGrid.IsVisible = true;
+            myPane.XAxis.MajorGrid.Color = System.Drawing.Color.Black;
+            myPane.YAxis.MajorGrid.Color = System.Drawing.Color.Black;
+        }
+         
+        public static void AddCurveToZedGraph(ZedGraphControl zgc, string label, SymbolType symbol,
+            System.Drawing.Color graphColor, double[] data, int xOffset)
+        {
+            // get a reference to the GraphPane
+            GraphPane myPane = zgc.GraphPane;
+
+            double x, y1;
+            PointPairList list = new PointPairList();
+
+            for (int i = 0; i < data.Length; i++)
             {
-                //if (idx % 2 == 0)
-                {
-                    int Value = (int)(s.Samples[idx].x);
-                    return "" + Value;
-                }
+                x = i + xOffset;
+                y1 = data[i];
+                list.Add(x, y1);
             }
-            else
-            {
-                int Value = (int)(s.Samples[idx].x / 200);
-                String Label = "" + Value + "\"";
-                return Label;
-            }
+
+            // Generate a red curve with diamond
+            // symbols, and "Porsche" in the legend
+            LineItem myCurve = myPane.AddCurve(label,
+                  list, graphColor, symbol);
+
+            //myCurve.Line.Fill = new Fill(System.Drawing.Color.White, graphColor, 45F);
+
+            // Tell ZedGraph to refigure the
+            // axes since the data have changed
+            zgc.AxisChange();
         }
     }
 }
