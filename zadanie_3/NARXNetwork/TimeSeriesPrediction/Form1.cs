@@ -34,10 +34,9 @@ namespace TimeSeriesPrediction
             net = new NARXNetwork();
 
             //  ERROR DISPLAY
-            GenerateGraph.SetZedGraph(errorForm.zedGraph_error, "TRAINING ERRORS", "Epochs", "Mean Squared Error (mse)", true);
+            GenerateGraph.SetZedGraph(errorForm.zedGraph_error, "TRAINING ERRORS", --net.EpochCount + " Epochs", "Mean Squared Error (mse)", true);
             GenerateGraph.AddCurveToZedGraph(errorForm.zedGraph_error, "Training MSE", SymbolType.None, Color.Red, net.GetTrainingTestError(), 0);
             GenerateGraph.AddCurveToZedGraph(errorForm.zedGraph_error, "Validation MSE", SymbolType.None, Color.Blue, net.GetValidationError(), 0);
-            
 
             //  USED DATA DISPLAY
             GenerateGraph.SetZedGraph(zedGraph_all, "USED DATA", "X AXIS", "Y AXIS");

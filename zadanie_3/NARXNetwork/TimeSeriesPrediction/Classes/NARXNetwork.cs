@@ -33,8 +33,9 @@ namespace TimeSeriesPrediction.Classes
 {
     class NARXNetwork
     {
-        private const int WindowSize = 5;
+        private const int WindowSize = 30;
         private TimeSeriesData timeSeriesData = new TimeSeriesData();
+        public int EpochCount { get; set; }
 
         private IMLDataSet trainingSet;
         private IMLDataSet validationSet;
@@ -48,19 +49,16 @@ namespace TimeSeriesPrediction.Classes
         public NARXNetwork()
         {
             //TODO: Doplnit konstruktor
+            EpochCount = 1;
             trainingError = new List<double>();
             validationError = new List<double>();
             predictionList = new List<double>();
             loopedPredictionList = new List<double>();
+
             network = CreateNetwork();
    
             trainingSet = GenerateDataSet(timeSeriesData.ReturnSet(SetTypeEnum.TrainingSet));
             validationSet = GenerateDataSet(timeSeriesData.ReturnSet(SetTypeEnum.ValidationSet));
-
-            //System.Diagnostics.Debug.Assert(timeSeriesData.ReturnSet(SetTypeEnum.TrainingSet).Length == trainingSet.Count + WindowSize + 1,
-            //    "Lengths of training sets are not the same!");
-            //System.Diagnostics.Debug.Assert(timeSeriesData.ReturnSet(SetTypeEnum.ValidationSet).Length == validationSet.Count + WindowSize + 1,
-            //    "Lengths of validation sets are not the same!");
 
             TrainNetwork();
             PredictData();
@@ -80,11 +78,22 @@ namespace TimeSeriesPrediction.Classes
         private BasicNetwork CreateNetwork()
         {
             var network = new BasicNetwork();
+
+            //network.AddLayer(new BasicLayer(WindowSize));
+            //network.AddLayer(new BasicLayer(100));
+            //network.AddLayer(new BasicLayer(1));
+
             network.AddLayer(new BasicLayer(null, true, WindowSize));
             network.AddLayer(new BasicLayer(new ActivationSigmoid(), true, 100));
-            network.AddLayer(new BasicLayer(16));
-            //network.AddLayer(new BasicLayer(17));
             network.AddLayer(new BasicLayer(new ActivationLinear(), false, 1));
+
+            //network.AddLayer(new BasicLayer(null, true, WindowSize));
+            //network.AddLayer(new BasicLayer(new ActivationTANH(), true, 10));
+            //network.AddLayer(new BasicLayer(new ActivationTANH(), true, 10));
+            ////network.AddLayer(new BasicLayer(17));
+            //network.AddLayer(new BasicLayer(new ActivationLinear(), false, 1));
+            
+            
             network.Structure.FinalizeStructure();
             network.Reset();
             return network;
@@ -122,16 +131,15 @@ namespace TimeSeriesPrediction.Classes
             ITrain training = new ResilientPropagation(network, trainingSet);
             training.AddStrategy(strategy);
 
-            int epoch = 1;
-            while(!strategy.ShouldStop() && epoch <= 1000)
+            while (!strategy.ShouldStop() && EpochCount <= 1000)
             {
                 training.Iteration();   // weights are updated here
                 double validationErr = network.CalculateError(validationSet);
-                System.Diagnostics.Debug.WriteLine(@"Epoch #" + epoch + @" Error: " + training.Error
+                System.Diagnostics.Debug.WriteLine(@"Epoch #" + EpochCount + @" Error: " + training.Error
                     + @" Validation Error: " + validationErr);
                 trainingError.Add(training.Error);
                 validationError.Add(validationErr);
-                epoch++;
+                EpochCount++;
             }
         }
 

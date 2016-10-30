@@ -99,7 +99,7 @@ namespace TimeSeriesPrediction.Classes
         private void NormalizeArray(double[] data)
         {
             double a = 1.0d / (double)(max - min);
-            double b = -a * min;
+            double b = 0.0d -a * min;
 
             for (int i = 0; i < data.Length; i++)
                 data[i] = a * data[i] + b;

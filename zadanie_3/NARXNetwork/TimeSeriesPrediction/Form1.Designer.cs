@@ -48,7 +48,7 @@
             this.panel1.Controls.Add(this.zedGraph_all);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1147, 314);
+            this.panel1.Size = new System.Drawing.Size(1185, 314);
             this.panel1.TabIndex = 1;
             // 
             // zedGraph_all
@@ -64,7 +64,7 @@
             this.zedGraph_all.ScrollMinX = 0D;
             this.zedGraph_all.ScrollMinY = 0D;
             this.zedGraph_all.ScrollMinY2 = 0D;
-            this.zedGraph_all.Size = new System.Drawing.Size(1143, 310);
+            this.zedGraph_all.Size = new System.Drawing.Size(1181, 310);
             this.zedGraph_all.TabIndex = 1;
             this.zedGraph_all.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zedGraph_all_KeyDown);
             // 
@@ -76,7 +76,7 @@
             this.panel2.Controls.Add(this.zedGraph_serial);
             this.panel2.Location = new System.Drawing.Point(12, 332);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1147, 314);
+            this.panel2.Size = new System.Drawing.Size(1185, 314);
             this.panel2.TabIndex = 2;
             // 
             // zedGraph_serial
@@ -92,7 +92,7 @@
             this.zedGraph_serial.ScrollMinX = 0D;
             this.zedGraph_serial.ScrollMinY = 0D;
             this.zedGraph_serial.ScrollMinY2 = 0D;
-            this.zedGraph_serial.Size = new System.Drawing.Size(1143, 310);
+            this.zedGraph_serial.Size = new System.Drawing.Size(1181, 310);
             this.zedGraph_serial.TabIndex = 2;
             this.zedGraph_serial.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zedGraph_serial_KeyDown);
             // 
@@ -104,7 +104,7 @@
             this.panel3.Controls.Add(this.zedGraph_looped);
             this.panel3.Location = new System.Drawing.Point(12, 652);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1147, 314);
+            this.panel3.Size = new System.Drawing.Size(1185, 314);
             this.panel3.TabIndex = 3;
             // 
             // zedGraph_looped
@@ -120,7 +120,7 @@
             this.zedGraph_looped.ScrollMinX = 0D;
             this.zedGraph_looped.ScrollMinY = 0D;
             this.zedGraph_looped.ScrollMinY2 = 0D;
-            this.zedGraph_looped.Size = new System.Drawing.Size(1143, 310);
+            this.zedGraph_looped.Size = new System.Drawing.Size(1181, 310);
             this.zedGraph_looped.TabIndex = 2;
             this.zedGraph_looped.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zedGraph_looped_KeyDown);
             // 
@@ -128,7 +128,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1673, 1096);
+            this.ClientSize = new System.Drawing.Size(1711, 973);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
