@@ -24,6 +24,9 @@ namespace SOMnetwork
 
         public Form1()
         {
+            KohonensMap som = new KohonensMap();
+            som.TrainNetwork();
+
             Random r = new Random(DateTime.Now.Millisecond);
             for (int i = 0; i < W * H; i++)
             {

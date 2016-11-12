@@ -59,25 +59,5 @@ namespace SOMNetwork.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] znaky {
-            get {
-                object obj = ResourceManager.GetObject("znaky", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] znaky_oznacenia {
-            get {
-                object obj = ResourceManager.GetObject("znaky_oznacenia", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }
