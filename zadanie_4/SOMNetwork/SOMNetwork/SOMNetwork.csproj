@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Hexagon.cs" />
+    <Compile Include="Classes\HexGrid.cs" />
+    <Compile Include="Classes\SOMNetwork.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
