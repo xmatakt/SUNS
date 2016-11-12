@@ -1,4 +1,4 @@
-﻿namespace SOMNetwork
+﻿namespace SOMnetwork
 {
     partial class Form1
     {

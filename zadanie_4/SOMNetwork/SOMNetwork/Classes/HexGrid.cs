@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SOMNetwork.Classes
+namespace SOMnetwork.Classes
 {
     class HexGrid
     {
@@ -33,7 +33,7 @@ namespace SOMNetwork.Classes
         {
             foreach (var hex in grid)
             {
-                hex.CalculateHexagonColor();
+                //hex.CalculateHexagonColor();
                 //  hexagon reprezentujuci neuron
                 hex.DrawHexagon(graphics);
                 //  Left

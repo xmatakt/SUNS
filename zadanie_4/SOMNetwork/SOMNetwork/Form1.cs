@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
-using SOMNetwork.Classes;
+using SOMnetwork.Classes;
 
-namespace SOMNetwork
+namespace SOMnetwork
 {
     public partial class Form1 : Form
     {
@@ -28,7 +28,7 @@ namespace SOMNetwork
             for (int i = 0; i < W * H; i++)
             {
                 arr[i] = r.Next(-100, 100) / 200.0d;
-                //Thread.Sleep(10);
+                Thread.Sleep(10);
             }
 
             InitializeComponent();
