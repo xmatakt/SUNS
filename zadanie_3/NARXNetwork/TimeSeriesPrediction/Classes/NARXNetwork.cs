@@ -33,7 +33,7 @@ namespace TimeSeriesPrediction.Classes
 {
     class NARXNetwork
     {
-        private const int WindowSize = 30;
+        private const int WindowSize = 5;
         private TimeSeriesData timeSeriesData = new TimeSeriesData();
         public int EpochCount { get; set; }
 
