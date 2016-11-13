@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SOMnetwork.Classes;
+
 namespace SOMnetwork.Classes
 {
     class Hexagon
@@ -25,6 +27,17 @@ namespace SOMnetwork.Classes
         public Hexagon Right = null;
         public Hexagon BottomRight = null;
         public Hexagon BottomLeft = null;
+
+        public Hexagon(double radius, PointF center, double distance, bool drawBorder = false)
+        {
+            vertices = new List<PointF>();
+            this.radius = radius;
+            this.center = new PointF(center.X, center.Y);
+            this.distance = distance;
+            this.drawBorder = drawBorder;
+
+            CalculateVertices();
+        }
 
         public Hexagon(double radius, PointF center, double distance, Color color, bool drawBorder = false)
         {
@@ -50,6 +63,84 @@ namespace SOMnetwork.Classes
             CalculateVertices();
         }
 
+        //vypocet farby pre hexagon reprezentujuci neuron
+        public void CalculateHexagonColor()
+        {
+            int count = 0;
+            double sumR = 0;
+            double sumG = 0;
+            double sumB = 0;
+            //  Left
+            if (this.Left != null)
+            {
+                count++;
+                sumR += this.Left.color.R;
+                sumG += this.Left.color.G;
+                sumB += this.Left.color.B;
+            }
+            //  UpperLeft
+            if (this.UpperLeft != null)
+            {
+                count++;
+                sumR += this.UpperLeft.color.R;
+                sumG += this.UpperLeft.color.G;
+                sumB += this.UpperLeft.color.B;
+            }
+            //  UpperRight
+            if (this.UpperRight != null)
+            {
+                count++;
+                sumR += this.UpperRight.color.G;
+                sumG += this.UpperRight.color.B;
+                sumB += this.UpperRight.color.R;
+            }
+            //  Right
+            if (this.Right != null)
+            {
+                count++;
+                sumR += this.Right.color.R;
+                sumG += this.Right.color.G;
+                sumB += this.Right.color.B;
+            }
+            //  BottomRight
+            if (this.BottomRight != null)
+            {
+                count++;
+                sumR += this.BottomRight.color.R;
+                sumG += this.BottomRight.color.G;
+                sumB += this.BottomRight.color.B;
+            }
+            //  BottomLeft
+            if (this.BottomLeft != null)
+            {
+                count++;
+                sumR += this.BottomLeft.color.R;
+                sumG += this.BottomLeft.color.G;
+                sumB += this.BottomLeft.color.B;
+            }
+            var distanceR = sumR / (double)count;
+            var distanceG = sumG / (double)count;
+            var distanceB = sumB / (double)count;
+            distanceR = Math.Max(0, distanceR);
+            distanceR = Math.Min(255, distanceR);
+            distanceG = Math.Max(0, distanceG);
+            distanceG = Math.Min(255, distanceG);
+            distanceB = Math.Max(0, distanceB);
+            distanceB = Math.Min(255, distanceB);
+            color = Color.FromArgb((int)(distanceR), (int)(distanceG), (int)(distanceB));
+        }
+
+        //vypocet farby pre okolie neuronu
+        public void CalculateHexagonColor(double a, double b)
+        {
+            color = Color.FromArgb((int)(a*distance+b),(int)(a*distance+b),(int)(a*distance+b));
+        }
+
+        public void CalculateHexagonColor(ColorScale scale)
+        {
+            color = scale.CalculateColor(distance);
+        }
+
         private void CalculateVertices()
         {
             double dx = radius * cos30;
@@ -65,55 +156,9 @@ namespace SOMnetwork.Classes
 
         public void DrawHexagon(Graphics g)
         {
-            Random rand = new Random();
             g.FillPolygon(new SolidBrush(color), vertices.ToArray());
             if (drawBorder)
                 g.DrawPolygon(new Pen(new SolidBrush(Color.Black), 2.0f),vertices.ToArray());
-        }
-
-        public void CalculateHexagonColor()
-        {
-            int count = 0;
-            double sum = 0;
-            //  hexagon reprezentujuci neuron
-            //  Left
-            if (this.Left != null)
-            {
-                count++;
-                sum += this.Left.distance;
-            }
-            //  UpperLeft
-            if (this.UpperLeft != null)
-            {
-                count++;
-                sum += this.UpperLeft.distance;
-            }
-            //  UpperRight
-            if (this.UpperRight != null)
-            {
-                count++;
-                sum += this.UpperRight.distance;
-            }
-            //  Right
-            if (this.Right != null)
-            {
-                count++;
-                sum += this.Right.distance;
-            }
-            //  BottomRight
-            if (this.BottomRight != null)
-            {
-                count++;
-                sum += this.BottomRight.distance;
-            }
-            //  BottomLeft
-            if (this.BottomLeft != null)
-            {
-                count++;
-                sum += this.BottomLeft.distance;
-            }
-            distance = sum / (double)count;
-            color = Color.FromArgb((int)(distance * 255), (int)(distance * 255), (int)(distance * 255));
         }
     }
 }
