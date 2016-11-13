@@ -41,7 +41,7 @@
             // 
             this.zedGraph_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.zedGraph_main.Location = new System.Drawing.Point(0, 0);
-            this.zedGraph_main.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.zedGraph_main.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.zedGraph_main.Name = "zedGraph_main";
             this.zedGraph_main.ScrollGrace = 0D;
             this.zedGraph_main.ScrollMaxX = 0D;
@@ -50,7 +50,7 @@
             this.zedGraph_main.ScrollMinX = 0D;
             this.zedGraph_main.ScrollMinY = 0D;
             this.zedGraph_main.ScrollMinY2 = 0D;
-            this.zedGraph_main.Size = new System.Drawing.Size(1379, 377);
+            this.zedGraph_main.Size = new System.Drawing.Size(1551, 471);
             this.zedGraph_main.TabIndex = 0;
             this.zedGraph_main.KeyDown += new System.Windows.Forms.KeyEventHandler(this.zedGraphControl1_KeyDown);
             // 
@@ -61,9 +61,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.zedGraph_main);
-            this.panel1.Location = new System.Drawing.Point(12, 7);
+            this.panel1.Location = new System.Drawing.Point(14, 9);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1381, 379);
+            this.panel1.Size = new System.Drawing.Size(1553, 473);
             this.panel1.TabIndex = 1;
             // 
             // panel2
@@ -72,16 +73,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.zedGraph_error);
-            this.panel2.Location = new System.Drawing.Point(13, 392);
+            this.panel2.Location = new System.Drawing.Point(15, 490);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1381, 379);
+            this.panel2.Size = new System.Drawing.Size(1551, 382);
             this.panel2.TabIndex = 2;
             // 
             // zedGraph_error
             // 
             this.zedGraph_error.Dock = System.Windows.Forms.DockStyle.Fill;
             this.zedGraph_error.Location = new System.Drawing.Point(0, 0);
-            this.zedGraph_error.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.zedGraph_error.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.zedGraph_error.Name = "zedGraph_error";
             this.zedGraph_error.ScrollGrace = 0D;
             this.zedGraph_error.ScrollMaxX = 0D;
@@ -90,17 +92,18 @@
             this.zedGraph_error.ScrollMinX = 0D;
             this.zedGraph_error.ScrollMinY = 0D;
             this.zedGraph_error.ScrollMinY2 = 0D;
-            this.zedGraph_error.Size = new System.Drawing.Size(1379, 377);
+            this.zedGraph_error.Size = new System.Drawing.Size(1549, 380);
             this.zedGraph_error.TabIndex = 0;
             // 
             // BigGraphForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1405, 779);
+            this.ClientSize = new System.Drawing.Size(1581, 974);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "BigGraphForm";
             this.Text = "BigGraphForm";
             this.panel1.ResumeLayout(false);
