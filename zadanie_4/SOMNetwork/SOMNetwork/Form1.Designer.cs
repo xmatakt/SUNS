@@ -46,6 +46,8 @@
             this.stopContinueBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.frameRate_upDown = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.timeLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridWidth_numeUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHeight_numeUpDown)).BeginInit();
@@ -69,11 +71,6 @@
             // gridWidth_numeUpDown
             // 
             this.gridWidth_numeUpDown.Location = new System.Drawing.Point(780, 33);
-            this.gridWidth_numeUpDown.Maximum = new decimal(new int[] {
-            70,
-            0,
-            0,
-            0});
             this.gridWidth_numeUpDown.Name = "gridWidth_numeUpDown";
             this.gridWidth_numeUpDown.Size = new System.Drawing.Size(97, 22);
             this.gridWidth_numeUpDown.TabIndex = 2;
@@ -100,11 +97,6 @@
             // gridHeight_numeUpDown
             // 
             this.gridHeight_numeUpDown.Location = new System.Drawing.Point(780, 78);
-            this.gridHeight_numeUpDown.Maximum = new decimal(new int[] {
-            70,
-            0,
-            0,
-            0});
             this.gridHeight_numeUpDown.Name = "gridHeight_numeUpDown";
             this.gridHeight_numeUpDown.Size = new System.Drawing.Size(97, 22);
             this.gridHeight_numeUpDown.TabIndex = 4;
@@ -249,11 +241,32 @@
             0,
             0});
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(777, 578);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(93, 17);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Elapsed time:";
+            // 
+            // timeLabel
+            // 
+            this.timeLabel.AutoSize = true;
+            this.timeLabel.Location = new System.Drawing.Point(799, 601);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(12, 17);
+            this.timeLabel.TabIndex = 18;
+            this.timeLabel.Text = " ";
+            this.timeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(893, 627);
+            this.Controls.Add(this.timeLabel);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.frameRate_upDown);
             this.Controls.Add(this.stopContinueBtn);
@@ -303,6 +316,8 @@
         private System.Windows.Forms.Button stopContinueBtn;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown frameRate_upDown;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label timeLabel;
 
     }
 }

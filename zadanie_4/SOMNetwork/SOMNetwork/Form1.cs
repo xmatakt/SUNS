@@ -56,8 +56,15 @@ namespace SOMnetwork
 
         private void trainButton_Click(object sender, EventArgs e)
         {
+            System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+            stopWatch.Stop();
+
+            
+
             g.Clear(color);
             pictureBox1.Refresh();
+
+            stopWatch.Start();
             som = new KohonensMap((int)gridWidth_numeUpDown.Value, (int)gridHeight_numeUpDown.Value,
                 (int)iterations_UpDown.Value, (int)groupsCount_UpDown.Value,
                 pictureBox1.Width, pictureBox1.Height, colorRadio.Checked);
@@ -74,6 +81,13 @@ namespace SOMnetwork
                 som.GenerateHexGrid();
                 som.VisualizeUMatrix(g);
                 pictureBox1.Refresh();
+
+                stopWatch.Stop();
+                TimeSpan ts = stopWatch.Elapsed;
+                string elapsedTime = String.Format("{0:00}:{1:00}.{2:00}s", ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+
+                timeLabel.Text = elapsedTime;
             }
         }
 
