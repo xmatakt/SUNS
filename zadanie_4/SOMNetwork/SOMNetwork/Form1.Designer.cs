@@ -71,6 +71,11 @@
             // gridWidth_numeUpDown
             // 
             this.gridWidth_numeUpDown.Location = new System.Drawing.Point(780, 33);
+            this.gridWidth_numeUpDown.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
             this.gridWidth_numeUpDown.Name = "gridWidth_numeUpDown";
             this.gridWidth_numeUpDown.Size = new System.Drawing.Size(97, 22);
             this.gridWidth_numeUpDown.TabIndex = 2;
@@ -97,6 +102,11 @@
             // gridHeight_numeUpDown
             // 
             this.gridHeight_numeUpDown.Location = new System.Drawing.Point(780, 78);
+            this.gridHeight_numeUpDown.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
             this.gridHeight_numeUpDown.Name = "gridHeight_numeUpDown";
             this.gridHeight_numeUpDown.Size = new System.Drawing.Size(97, 22);
             this.gridHeight_numeUpDown.TabIndex = 4;
