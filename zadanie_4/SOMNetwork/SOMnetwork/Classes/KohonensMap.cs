@@ -28,7 +28,8 @@ namespace SOMnetwork.Classes
         private readonly Encog.Neural.SOM.SOMNetwork network;
         private readonly IList<IMLData> samples;
         private readonly BasicTrainSOM train;
-        private int iteration;
+
+        private int iteration = 0;
         private HexGrid hexGrid;
         DataLoader dataLoader;
 
@@ -76,18 +77,37 @@ namespace SOMnetwork.Classes
             return result;
         }
 
-        public void TrainNetwork()
+        public void TrainNetwork(bool iterate = false, int stepSize = 1)
         {
-            for (int i = 0; i < iterationCount; i++)
+            if(!iterate)
             {
-                var tmp = ThreadSafeRandom.NextDouble();
-                var idx = (int)(tmp * samples.Count);
-                IMLData c = samples[idx];
+                for (int i = 0; i < iterationCount; i++)
+                {
+                    var tmp = ThreadSafeRandom.NextDouble();
+                    var idx = (int)(tmp * samples.Count);
+                    IMLData c = samples[idx];
 
-                train.TrainPattern(c);
-                train.AutoDecay();
-                if (i % 50 == 0)
-                    System.Diagnostics.Debug.WriteLine("Iteration n.{0}: " + train.ToString(), i);
+                    train.TrainPattern(c);
+                    train.AutoDecay();
+                    if (i % 50 == 0)
+                        System.Diagnostics.Debug.WriteLine("Iteration n.{0}: " + train.ToString(), i);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < stepSize; i++)
+                {
+                    iteration++;
+                    var tmp = ThreadSafeRandom.NextDouble();
+                    var idx = (int)(tmp * samples.Count);
+                    IMLData c = samples[idx];
+
+                    train.TrainPattern(c);
+                    train.AutoDecay();
+
+                    if (iteration % stepSize == 0)
+                        System.Diagnostics.Debug.WriteLine("Iteration n.{0}: " + train.ToString(), iteration); ;
+                }
             }
         }
 

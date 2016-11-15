@@ -29,6 +29,7 @@ namespace SOMnetwork
         Color color = Color.FromName("Control");
         private const int W = 10;
         private const int H = 10;
+        private bool iterateClicked = false;
         double[] arr = new double[W * H];
 
         public Form1()
@@ -56,10 +57,9 @@ namespace SOMnetwork
 
         private void trainButton_Click(object sender, EventArgs e)
         {
+            iterateClicked = true;
             System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
             stopWatch.Stop();
-
-            
 
             g.Clear(color);
             pictureBox1.Refresh();
@@ -102,7 +102,38 @@ namespace SOMnetwork
 
         private void colorRadio_CheckedChanged(object sender, EventArgs e)
         {
+            iterateClicked = false;
+        }
 
+        private void iterateBtn_Click(object sender, EventArgs e)
+        {
+            if(!iterateClicked)
+            {
+                som = new KohonensMap((int)gridWidth_numeUpDown.Value, (int)gridHeight_numeUpDown.Value,
+                (int)iterations_UpDown.Value, (int)groupsCount_UpDown.Value,
+                pictureBox1.Width, pictureBox1.Height, colorRadio.Checked);
+                iterateClicked = true;
+            }
+            System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+            stopWatch.Start();
+
+            stopContinueBtn.Enabled = false;
+            som.TrainNetwork(true, (int)stepSiye_numUpDown.Value);
+            som.GenerateHexGrid();
+            som.VisualizeUMatrix(g);
+            pictureBox1.Refresh();
+
+            stopWatch.Stop();
+            TimeSpan ts = stopWatch.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}.{2:00}s", ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+
+            timeLabel.Text = elapsedTime;
+        }
+
+        private void gridWidth_numeUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            iterateClicked = false;
         }
     }
 }

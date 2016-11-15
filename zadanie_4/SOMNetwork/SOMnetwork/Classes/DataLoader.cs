@@ -32,8 +32,6 @@ namespace SOMnetwork.Classes
                         Znaky[i][j] = Convert.ToDouble(splittedLine[j], System.Globalization.CultureInfo.InvariantCulture);
                     }
                     NormalizeData(Znaky[i]);
-                    var min = Znaky[i].Min();
-                    var max = Znaky[i].Max();
                 }
             }
             catch (Exception ex)

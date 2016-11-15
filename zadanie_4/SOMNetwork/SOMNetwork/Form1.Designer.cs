@@ -48,19 +48,25 @@
             this.frameRate_upDown = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.timeLabel = new System.Windows.Forms.Label();
+            this.iterateBtn = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.stepSiye_numUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridWidth_numeUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHeight_numeUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterations_UpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupsCount_UpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.frameRate_upDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stepSiye_numUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(13, 13);
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.pictureBox1.Location = new System.Drawing.Point(-1, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(750, 604);
+            this.pictureBox1.Size = new System.Drawing.Size(772, 620);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -76,10 +82,21 @@
             0,
             0,
             0});
+            this.gridWidth_numeUpDown.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             this.gridWidth_numeUpDown.Name = "gridWidth_numeUpDown";
             this.gridWidth_numeUpDown.Size = new System.Drawing.Size(97, 22);
             this.gridWidth_numeUpDown.TabIndex = 2;
             this.gridWidth_numeUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.gridWidth_numeUpDown.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.gridWidth_numeUpDown.ValueChanged += new System.EventHandler(this.gridWidth_numeUpDown_ValueChanged);
             // 
             // label1
             // 
@@ -107,10 +124,21 @@
             0,
             0,
             0});
+            this.gridHeight_numeUpDown.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             this.gridHeight_numeUpDown.Name = "gridHeight_numeUpDown";
             this.gridHeight_numeUpDown.Size = new System.Drawing.Size(97, 22);
             this.gridHeight_numeUpDown.TabIndex = 4;
             this.gridHeight_numeUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.gridHeight_numeUpDown.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.gridHeight_numeUpDown.ValueChanged += new System.EventHandler(this.gridWidth_numeUpDown_ValueChanged);
             // 
             // greyRadio
             // 
@@ -254,7 +282,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(777, 578);
+            this.label6.Location = new System.Drawing.Point(777, 575);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(93, 17);
             this.label6.TabIndex = 17;
@@ -263,18 +291,59 @@
             // timeLabel
             // 
             this.timeLabel.AutoSize = true;
-            this.timeLabel.Location = new System.Drawing.Point(799, 601);
+            this.timeLabel.Location = new System.Drawing.Point(799, 598);
             this.timeLabel.Name = "timeLabel";
             this.timeLabel.Size = new System.Drawing.Size(12, 17);
             this.timeLabel.TabIndex = 18;
             this.timeLabel.Text = " ";
             this.timeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // iterateBtn
+            // 
+            this.iterateBtn.Location = new System.Drawing.Point(788, 535);
+            this.iterateBtn.Name = "iterateBtn";
+            this.iterateBtn.Size = new System.Drawing.Size(95, 33);
+            this.iterateBtn.TabIndex = 19;
+            this.iterateBtn.Text = "Iterate";
+            this.iterateBtn.UseVisualStyleBackColor = true;
+            this.iterateBtn.Click += new System.EventHandler(this.iterateBtn_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(785, 487);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(70, 17);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Step size:";
+            // 
+            // stepSiye_numUpDown
+            // 
+            this.stepSiye_numUpDown.Location = new System.Drawing.Point(788, 507);
+            this.stepSiye_numUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.stepSiye_numUpDown.Name = "stepSiye_numUpDown";
+            this.stepSiye_numUpDown.Size = new System.Drawing.Size(97, 22);
+            this.stepSiye_numUpDown.TabIndex = 20;
+            this.stepSiye_numUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.stepSiye_numUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(893, 627);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(893, 622);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.stepSiye_numUpDown);
+            this.Controls.Add(this.iterateBtn);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -295,13 +364,14 @@
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "SOM network";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridWidth_numeUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHeight_numeUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterations_UpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupsCount_UpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.frameRate_upDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stepSiye_numUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -328,6 +398,9 @@
         private System.Windows.Forms.NumericUpDown frameRate_upDown;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label timeLabel;
+        private System.Windows.Forms.Button iterateBtn;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown stepSiye_numUpDown;
 
     }
 }
