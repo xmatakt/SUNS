@@ -86,7 +86,7 @@ namespace SOMnetwork.Classes
                     var tmp = ThreadSafeRandom.NextDouble();
                     var idx = (int)(tmp * samples.Count);
                     IMLData c = samples[idx];
-
+                    
                     train.TrainPattern(c);
                     train.AutoDecay();
                     if (i % 50 == 0)
