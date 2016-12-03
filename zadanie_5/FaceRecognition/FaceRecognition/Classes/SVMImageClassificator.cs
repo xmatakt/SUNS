@@ -26,7 +26,7 @@ namespace FaceRecognition.Classes
 {
     class SVMImageClassificator
     {
-        int downsampleFactor = 1;
+        int downsampleFactor = 2;
         int downsampledWidth;
         int downsampledHeight;
         int inputNeuronsCount;
